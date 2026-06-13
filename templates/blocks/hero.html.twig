@@ -4,7 +4,8 @@
     {# Fondo con imagen/video + overlay #}
     <div class="hero__bg" aria-hidden="true">
         <img class="hero__bg-img"
-             src="https://picsum.photos/seed/metalpit/1600/900"
+             src="{{ asset('build/images/homepage_background.png') }}"
+             {#src="https://picsum.photos/seed/metalpit/1600/900" #}
              alt=""
              fetchpriority="high">
         <div class="hero__bg-overlay"></div>
@@ -22,7 +23,7 @@
         </div>
 
         <h1 class="hero__title" data-hero-target="title">
-            <span class="hero__title-line hero__title-line--1">VORTEX</span>
+            <span class="hero__title-line hero__title-line--1">SCRUMBAG</span>
             <span class="hero__title-line hero__title-line--2">FEST</span>
         </h1>
 
@@ -44,13 +45,14 @@
         {# Stats rápidos #}
         <div class="hero__stats" data-hero-target="stats">
             <div class="hero__stat">
-                <strong>120+</strong>
+                <strong>30+</strong>
                 <span>Bandas</span>
             </div>
+            {#
             <div class="hero__stat">
                 <strong>4</strong>
                 <span>Escenarios</span>
-            </div>
+            </div> #}
             <div class="hero__stat">
                 <strong>3</strong>
                 <span>Días</span>

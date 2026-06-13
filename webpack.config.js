@@ -49,6 +49,12 @@ Encore.enableStimulusBridge("./assets/controllers.json")
     // but, you probably want this, unless you're building a single-page app
     .enableSingleRuntimeChunk()
 
+    //Copy content from assets images to public
+    .copyFiles({
+        from: "./assets/images",
+        to: "images/[path][name].[ext]",
+    })
+
     /*
      * FEATURE CONFIG
      *
