@@ -1,0 +1,109 @@
+/* assets/styles/layout/base.css
+   ─────────────────────────────────────────
+   Design tokens + tipografía + estructura global
+   ─────────────────────────────────────────────── */
+
+:root {
+    /* ── Paleta ── */
+    --black:       #0a0a0a;
+    --black-soft:  #111111;
+    --dark:        #1a1a1a;
+    --dark-mid:    #222222;
+    --mid:         #333333;
+    --muted:       #666666;
+    --light-muted: #999999;
+    --light:       #cccccc;
+    --white:       #f5f5f0;
+
+    /* Acentos vivos */
+    --accent:      #e8ff00;   /* amarillo ácido — firma del festival */
+    --accent-2:    #ff3c00;   /* naranja sangre */
+    --accent-3:    #00e5ff;   /* cyan eléctrico — uso mínimo */
+    --accent-dim:  rgba(232, 255, 0, 0.12);
+
+    /* ── Tipografía ── */
+    --font-display: 'Black Han Sans', 'Impact', sans-serif;
+    --font-mono:    'Share Tech Mono', 'Courier New', monospace;
+    --font-body:    'Space Grotesk', system-ui, sans-serif;
+
+    /* ── Espaciado ── */
+    --space-xs:  0.25rem;
+    --space-sm:  0.5rem;
+    --space-md:  1rem;
+    --space-lg:  2rem;
+    --space-xl:  4rem;
+    --space-2xl: 8rem;
+
+    /* ── Layout ── */
+    --sidebar-w:    60px;
+    --navbar-h:     70px;
+    --countdown-h:  36px;
+    --content-max:  1400px;
+    --gutter:       clamp(1rem, 4vw, 3rem);
+    --section-pad:  clamp(4rem, 10vw, 9rem);
+
+    /* ── Transiciones ── */
+    --ease-out:  cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in:   cubic-bezier(0.4, 0, 1, 1);
+}
+
+/* ── Base ── */
+html {
+    font-size: 16px;
+    background: var(--black);
+    color: var(--white);
+}
+
+body {
+    font-family: var(--font-body);
+    font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+    line-height: 1.65;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* ── Tipografía de display ── */
+h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+}
+
+/* ── Site wrapper: sidebar + main ── */
+.site-wrapper {
+    display: flex;
+    min-height: 100vh;
+    padding-top: calc(var(--navbar-h) + var(--countdown-h));
+}
+
+.main-content {
+    flex: 1;
+    min-width: 0;
+    margin-left: var(--sidebar-w);
+}
+
+/* ── Scrollbar customizada ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--black); }
+::-webkit-scrollbar-thumb { background: var(--mid); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* ── Sección genérica padding ── */
+section {
+    padding-block: var(--section-pad);
+    padding-inline: var(--gutter);
+}
+
+/* ── Contenedor centrado ── */
+.container {
+    max-width: var(--content-max);
+    margin-inline: auto;
+}
+
+/* ── Selection color ── */
+::selection { background: var(--accent); color: var(--black); }
+
+@media (max-width: 768px) {
+    .main-content { margin-left: 0; }
+    :root { --sidebar-w: 0px; }
+}

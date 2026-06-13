@@ -1,29 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="es" data-controller="theme">
 	<head>
 		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>
-			{% block title %}Scrumbag Fest - 2026
+			{% block title %}VORTEX FEST — Underground Metal Festival
 			{% endblock %}
 		</title>
-		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>"> {% block stylesheets %}{% endblock %}
-            {{ encore_entry_link_tags('app') }}
+		<meta
+		name="description" content="{% block meta_description %}El festival de metal más underground de la península. Grindcore, Death, Black, Noise.{% endblock %}">
 
-		{% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-			{% block importmap %}
-				{{ importmap('app') }}
-			{% endblock %}
-		{% endblock %}
+		{# Google Fonts - display + body #}
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link
+		href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Share+Tech+Mono&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
 
-		{% set frankenphpHotReload = app.request.server.get('FRANKENPHP_HOT_RELOAD') %}
-		{% if frankenphpHotReload %}
-			<meta name="frankenphp-hot-reload:url" content="{{ frankenphpHotReload }}">
-			<script src="https://cdn.jsdelivr.net/npm/idiomorph"></script>
-			<script src="https://cdn.jsdelivr.net/npm/frankenphp-hot-reload/+esm" type="module"></script>
-		{% endif %}
+		{# CSS global #}
+		{{ encore_entry_link_tags('app') }}
+		{{ encore_entry_link_tags('reset') }}
+		{{ encore_entry_link_tags('base') }}
+		{{ encore_entry_link_tags('navbar') }}
+		{{ encore_entry_link_tags('floating-sidebar') }}
+		{{ encore_entry_link_tags('footer') }}
+
+		{# CSS de bloque específico de la página #}
+		{% block stylesheets %}{% endblock %}
+
+		{# Stimulus / importmap #}
+		{{ encore_entry_script_tags('app') }}
+
 	</head>
-	<body>
-		{% block body %}{% endblock %}
-	</body>
-</html>
+	<body
+		data-controller="page-loader">
+
+		{# ─── Barra superior de cuenta regresiva ─── #}
+		{% include 'components/countdown-bar.html.twig' %}
+
+		{# ─── Navbar ─── #}
+		{% include 'components/navbar.html.twig' %}
+
+		{# ─── Layout principal: sidebar + content ─── #}
+		<div
+			class="site-wrapper">
+
+			{# Bloque flotante lateral izquierdo #}
+			{% include 'components/floating-sidebar.html.twig' %}
+
+			{# Contenido principal #}
+			<main class="main-content" id="main-content"> {% block body %}{% endblock %}
+				</main>
+
+			</div>
+
+			{# ─── Footer ─── #}
+			{% include 'components/footer.html.twig' %}
+
+			{% block javascripts %}{% endblock %}
+		</body>
+	</html>

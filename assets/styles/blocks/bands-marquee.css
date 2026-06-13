@@ -1,0 +1,62 @@
+/* assets/styles/blocks/bands-marquee.css
+   ──────────────────────────────────────────
+   Encapsulado: todo bajo .bands-marquee
+   ─────────────────────────────────────────── */
+
+.bands-marquee {
+    position: relative;
+    background: var(--accent);
+    color: var(--black);
+    overflow: hidden;
+    padding-block: 0.9rem;
+    white-space: nowrap;
+}
+
+.bands-marquee::before,
+.bands-marquee::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 80px;
+    z-index: 2;
+}
+
+.bands-marquee::before { left: 0;  background: linear-gradient(to right,  var(--accent), transparent); }
+.bands-marquee::after  { right: 0; background: linear-gradient(to left, var(--accent), transparent); }
+
+.bands-marquee__track {
+    display: flex;
+    width: max-content;
+    animation: marquee-scroll 40s linear infinite;
+    will-change: transform;
+}
+
+.bands-marquee:hover .bands-marquee__track { animation-play-state: paused; }
+
+.bands-marquee__group {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.bands-marquee__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-display);
+    font-size: clamp(0.85rem, 1.5vw, 1.1rem);
+    letter-spacing: 0.08em;
+    padding-inline: 0.75rem;
+    color: var(--black);
+}
+
+.bands-marquee__sep {
+    font-size: 0.5rem;
+    opacity: 0.4;
+}
+
+@keyframes marquee-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}

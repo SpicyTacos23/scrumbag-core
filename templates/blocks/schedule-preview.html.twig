@@ -1,0 +1,86 @@
+{# templates/blocks/schedule-preview.html.twig #}
+<section class="schedule-preview" id="schedule" data-controller="schedule-preview">
+
+    <header class="schedule-preview__header">
+        <div class="schedule-preview__label">HORARIO</div>
+        <h2 class="schedule-preview__title">PROGRAMA</h2>
+    </header>
+
+    {# Tabs de días #}
+    <div class="schedule-preview__tabs" role="tablist" aria-label="Días del festival">
+        <button class="schedule-preview__tab schedule-preview__tab--active"
+                role="tab" aria-selected="true" aria-controls="day-1"
+                data-action="click->schedule-preview#switchDay"
+                data-day="1">
+            <span class="schedule-preview__tab-day">VIE</span>
+            <span class="schedule-preview__tab-date">17 JUL</span>
+        </button>
+        <button class="schedule-preview__tab"
+                role="tab" aria-selected="false" aria-controls="day-2"
+                data-action="click->schedule-preview#switchDay"
+                data-day="2">
+            <span class="schedule-preview__tab-day">SÁB</span>
+            <span class="schedule-preview__tab-date">18 JUL</span>
+        </button>
+        <button class="schedule-preview__tab"
+                role="tab" aria-selected="false" aria-controls="day-3"
+                data-action="click->schedule-preview#switchDay"
+                data-day="3">
+            <span class="schedule-preview__tab-day">DOM</span>
+            <span class="schedule-preview__tab-date">19 JUL</span>
+        </button>
+    </div>
+
+    {# Contenido de cada día (placeholder) #}
+    {% set days = {
+        1: [
+            { time: '14:00', band: 'REPULSION',    stage: 'Escenario Subterráneo', country: 'USA' },
+            { time: '15:30', band: 'TERRORIZER',   stage: 'Escenario Principal',   country: 'USA' },
+            { time: '17:00', band: 'AUTOPSY',      stage: 'Escenario Subterráneo', country: 'USA' },
+            { time: '18:30', band: 'NAPALM DEATH', stage: 'Escenario Principal',   country: 'GBR' },
+            { time: '20:30', band: 'DISMEMBER',    stage: 'Escenario Principal',   country: 'SWE' },
+            { time: '23:00', band: 'MORBID ANGEL', stage: 'Escenario Principal',   country: 'USA' },
+        ],
+        2: [
+            { time: '13:00', band: 'BRUTAL TRUTH', stage: 'Escenario Subterráneo', country: 'USA' },
+            { time: '15:00', band: 'EYEHATEGOD',   stage: 'Escenario Principal',   country: 'USA' },
+            { time: '17:00', band: 'CONVERGE',     stage: 'Escenario Principal',   country: 'USA' },
+            { time: '19:30', band: 'CARCASS',      stage: 'Escenario Principal',   country: 'GBR' },
+        ],
+        3: [
+            { time: '14:00', band: 'DARKTHRONE',   stage: 'Escenario Principal',   country: 'NOR' },
+            { time: '16:00', band: 'MAYHEM',       stage: 'Escenario Principal',   country: 'NOR' },
+            { time: '18:30', band: 'ENTOMBED',     stage: 'Escenario Subterráneo', country: 'SWE' },
+            { time: '21:00', band: 'SUFFOCATION',  stage: 'Escenario Principal',   country: 'USA' },
+        ]
+    } %}
+
+    <div class="schedule-preview__days">
+        {% for day_num, slots in days %}
+            <div class="schedule-preview__day {% if day_num == 1 %}schedule-preview__day--active{% endif %}"
+                 id="day-{{ day_num }}"
+                 role="tabpanel"
+                 aria-hidden="{{ day_num != 1 ? 'true' : 'false' }}">
+                <ul class="schedule-preview__slots">
+                    {% for slot in slots %}
+                        <li class="schedule-preview__slot">
+                            <span class="schedule-preview__slot-time">{{ slot.time }}</span>
+                            <span class="schedule-preview__slot-band">{{ slot.band }}</span>
+                            <span class="schedule-preview__slot-meta">
+                                <span class="schedule-preview__slot-stage">{{ slot.stage }}</span>
+                                <span class="schedule-preview__slot-country">{{ slot.country }}</span>
+                            </span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="schedule-preview__footer">
+        <a href="{{ path('app_schedule') }}" class="schedule-preview__full-link">
+            VER HORARIO COMPLETO →
+        </a>
+    </div>
+
+</section>

@@ -1,0 +1,73 @@
+{# templates/blocks/hero.html.twig #}
+<section class="hero" id="hero" data-controller="hero" aria-label="Hero principal">
+
+    {# Fondo con imagen/video + overlay #}
+    <div class="hero__bg" aria-hidden="true">
+        <img class="hero__bg-img"
+             src="https://picsum.photos/seed/metalpit/1600/900"
+             alt=""
+             fetchpriority="high">
+        <div class="hero__bg-overlay"></div>
+        {# Textura de ruido SVG #}
+        <div class="hero__noise"></div>
+    </div>
+
+    {# Contenido #}
+    <div class="hero__content">
+
+        <div class="hero__eyebrow" data-hero-target="eyebrow">
+            <span class="hero__edition">XVII EDICIÓN</span>
+            <span class="hero__separator" aria-hidden="true">///</span>
+            <span class="hero__dates">17 · 18 · 19 JULIO 2026</span>
+        </div>
+
+        <h1 class="hero__title" data-hero-target="title">
+            <span class="hero__title-line hero__title-line--1">VORTEX</span>
+            <span class="hero__title-line hero__title-line--2">FEST</span>
+        </h1>
+
+        <p class="hero__subtitle" data-hero-target="subtitle">
+            Grindcore · Death · Black · Noise · Crust<br>
+            <em>Arenas de la Calavera, Sierra Norte</em>
+        </p>
+
+        <div class="hero__actions" data-hero-target="actions">
+            <a href="#tickets" class="hero__btn hero__btn--primary">
+                <span>CONSEGUIR TICKETS</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+            <a href="#bands" class="hero__btn hero__btn--ghost">VER BANDAS</a>
+        </div>
+
+        {# Stats rápidos #}
+        <div class="hero__stats" data-hero-target="stats">
+            <div class="hero__stat">
+                <strong>120+</strong>
+                <span>Bandas</span>
+            </div>
+            <div class="hero__stat">
+                <strong>4</strong>
+                <span>Escenarios</span>
+            </div>
+            <div class="hero__stat">
+                <strong>3</strong>
+                <span>Días</span>
+            </div>
+            <div class="hero__stat">
+                <strong>30+</strong>
+                <span>Países</span>
+            </div>
+        </div>
+
+    </div>
+
+    {# Flecha scroll down #}
+    <a href="#bands-marquee" class="hero__scroll-arrow" aria-label="Ir al contenido">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M12 5v14M5 12l7 7 7-7"/>
+        </svg>
+    </a>
+
+</section>

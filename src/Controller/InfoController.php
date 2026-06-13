@@ -6,11 +6,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-final class HomepageController extends AbstractController
+final class InfoController extends AbstractController
 {
-    #[Route('', name: 'app_homepage', methods: ['GET'])]
-    public function main(): Response
+    #[Route('', name: 'app_info_transport', methods: ['GET'])]
+    public function transport(): Response
     {
-        return $this->render('homepage.html.twig');
+        return new Response('transport');
     }
 }

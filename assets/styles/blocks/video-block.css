@@ -1,0 +1,178 @@
+/* assets/styles/blocks/video-block.css
+   ──────────────────────────────────────── */
+
+.video-block {
+    background: var(--black-soft);
+    padding-left: calc(var(--gutter) + var(--sidebar-w));
+    border-top: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.video-block__content {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+    max-width: var(--content-max);
+    margin-inline: auto;
+}
+
+.video-block__label {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    margin-bottom: 1rem;
+}
+
+.video-block__title {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    color: var(--white);
+    margin-bottom: 1.5rem;
+    line-height: 0.9;
+}
+
+.video-block__title span { color: var(--accent-2); }
+
+.video-block__desc {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+}
+
+.video-block__play-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: var(--white);
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    padding-bottom: 0.3rem;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.video-block__play-link:hover { color: var(--accent); border-color: var(--accent); }
+
+.video-block__play-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: var(--accent);
+    color: var(--black);
+    border-radius: 50%;
+    font-size: 0.7rem;
+}
+
+/* Thumbnail */
+.video-block__thumb-wrap {
+    position: relative;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid rgba(255,255,255,0.05);
+}
+
+.video-block__thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s var(--ease-out), filter 0.3s;
+    filter: saturate(0.5);
+}
+
+.video-block__thumb-wrap:hover .video-block__thumb { transform: scale(1.03); filter: saturate(0.7); }
+
+.video-block__thumb-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(10,10,10,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
+}
+
+.video-block__thumb-wrap:hover .video-block__thumb-overlay { background: rgba(10,10,10,0.2); }
+
+.video-block__big-play {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    background: rgba(232,255,0,0.9);
+    color: var(--black);
+    border-radius: 50%;
+    font-size: 1.4rem;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.video-block__thumb-wrap:hover .video-block__big-play {
+    transform: scale(1.1);
+    background: var(--accent);
+}
+
+/* Modal */
+.video-block__modal {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+
+.video-block__modal[aria-hidden="false"] { opacity: 1; pointer-events: auto; }
+
+.video-block__modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    cursor: pointer;
+}
+
+.video-block__modal-inner {
+    position: relative;
+    width: min(90vw, 900px);
+    z-index: 1;
+}
+
+.video-block__modal-close {
+    position: absolute;
+    top: -2.5rem;
+    right: 0;
+    color: var(--white);
+    font-size: 1.2rem;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.video-block__modal-close:hover { opacity: 1; }
+
+.video-block__iframe-wrap {
+    position: relative;
+    aspect-ratio: 16/9;
+    background: var(--black);
+}
+
+.video-block__iframe-wrap iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+@media (max-width: 768px) {
+    .video-block { padding-left: var(--gutter); }
+    .video-block__content { grid-template-columns: 1fr; }
+}

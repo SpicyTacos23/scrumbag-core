@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}VORTEX FEST 2026 — Underground Metal Festival{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('hero') }}
+    {{ encore_entry_link_tags('bands-marquee') }}
+    {{ encore_entry_link_tags('featured-bands') }}
+    {{ encore_entry_link_tags('video-block') }}
+    {{ encore_entry_link_tags('news-grid') }}
+    {{ encore_entry_link_tags('schedule-preview') }}
+    {{ encore_entry_link_tags('location-block') }}
+{% endblock %}
+
+{% block body %}
+
+    {# ──────────────────────────────────────────
+       BLOQUE 1: HERO
+    ────────────────────────────────────────── #}
+    {% include 'blocks/hero.html.twig' %}
+
+    {# ──────────────────────────────────────────
+       BLOQUE 2: MARQUEE DE BANDAS CONFIRMADAS
+    ────────────────────────────────────────── #}
+    {% include 'blocks/bands-marquee.html.twig' %}
+
+    {# ──────────────────────────────────────────
+       BLOQUE 3: BANDAS DESTACADAS (grid)
+    ────────────────────────────────────────── #}
+    {% include 'blocks/featured-bands.html.twig' with {
+        bands: bands ?? []
+    } %}
+
+    {# ──────────────────────────────────────────
+       BLOQUE 4: VIDEO EMBEBIDO / AFTERMOVIE
+    ────────────────────────────────────────── #}
+    {% include 'blocks/video-block.html.twig' %}
+
+    {# ──────────────────────────────────────────
+       BLOQUE 5: NOTICIAS / NEWS GRID
+    ────────────────────────────────────────── #}
+    {% include 'blocks/news-grid.html.twig' with {
+        news: news ?? []
+    } %}
+
+    {# ──────────────────────────────────────────
+       BLOQUE 6: PREVIEW DE HORARIO
+    ────────────────────────────────────────── #}
+    {% include 'blocks/schedule-preview.html.twig' %}
+
+    {# ──────────────────────────────────────────
+       BLOQUE 7: UBICACIÓN
+    ────────────────────────────────────────── #}
+    {% include 'blocks/location-block.html.twig' %}
+
+    {# ──────────────────────────────────────────
+       BLOQUE 8: CTA TICKETS (sticky bottom)
+    ────────────────────────────────────────── #}
+    {% include 'blocks/tickets-cta.html.twig' %}
+
+{% endblock %}

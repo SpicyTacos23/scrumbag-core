@@ -1,0 +1,98 @@
+{# templates/blocks/news-grid.html.twig #}
+{#
+    Parámetros:
+    - news: colección de entidad News (title, excerpt, date, image, slug, category)
+#}
+{% set placeholder_news = [
+    {
+        title: 'DISMEMBER confirma su vuelta a Vortex Fest tras 8 años',
+        excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Los suecos vuelven a la península con su formación original.',
+        date: '2026-05-12',
+        category: 'ANUNCIO',
+        slug: 'dismember-confirma-vuelta',
+        seed: 'news01'
+    },
+    {
+        title: 'Nuevas medidas de acceso y campamentos para 2026',
+        excerpt: 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Todo lo que necesitas saber antes de venir.',
+        date: '2026-04-28',
+        category: 'INFO',
+        slug: 'acceso-campamentos-2026',
+        seed: 'news02'
+    },
+    {
+        title: 'El fanzine oficial ya disponible: 200 páginas de metal',
+        excerpt: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+        date: '2026-04-10',
+        category: 'FANZINE',
+        slug: 'fanzine-2026-disponible',
+        seed: 'news03'
+    },
+    {
+        title: 'Segunda oleada de bandas anunciada: 40 nuevas confirmaciones',
+        excerpt: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+        date: '2026-03-22',
+        category: 'ANUNCIO',
+        slug: 'segunda-oleada-bandas',
+        seed: 'news04'
+    },
+] %}
+{% set news_items = news is not empty ? news : placeholder_news %}
+
+<section class="news-grid" id="news" data-controller="news-grid">
+
+    <header class="news-grid__header">
+        <div class="news-grid__label">ÚLTIMAS NOTICIAS</div>
+        <h2 class="news-grid__title">NOVEDADES</h2>
+        <a href="{{ path('app_news') }}" class="news-grid__all-link">Ver todo →</a>
+    </header>
+
+    <div class="news-grid__grid">
+
+        {# Noticia destacada (primera) #}
+        {% set featured = news_items[0] %}
+        <article class="news-card news-card--featured" data-controller="news-card">
+            <a href="{{ path('app_news_detail', { slug: featured.slug }) }}" class="news-card__link">
+                <div class="news-card__img-wrap">
+                    {% if featured.image is defined and featured.image %}
+                        <img src="{{ asset('uploads/news/' ~ featured.image) }}" alt="{{ featured.title }}" loading="lazy">
+                    {% else %}
+                        <img src="https://picsum.photos/seed/{{ featured.seed ?? 'featured' }}/900/500" alt="{{ featured.title }}" loading="lazy">
+                    {% endif %}
+                    <span class="news-card__category">{{ featured.category }}</span>
+                </div>
+                <div class="news-card__body">
+                    <time class="news-card__date" datetime="{{ featured.date }}">
+                        {{ featured.date|date('d M Y') }}
+                    </time>
+                    <h3 class="news-card__title">{{ featured.title }}</h3>
+                    <p class="news-card__excerpt">{{ featured.excerpt }}</p>
+                </div>
+            </a>
+        </article>
+
+        {# Noticias secundarias #}
+        <div class="news-grid__secondary">
+            {% for item in news_items[1:] %}
+                <article class="news-card news-card--secondary" data-controller="news-card">
+                    <a href="{{ path('app_news_detail', { slug: item.slug }) }}" class="news-card__link">
+                        <div class="news-card__img-wrap">
+                            {% if item.image is defined and item.image %}
+                                <img src="{{ asset('uploads/news/' ~ item.image) }}" alt="{{ item.title }}" loading="lazy">
+                            {% else %}
+                                <img src="https://picsum.photos/seed/{{ item.seed ?? item.slug }}/600/340" alt="{{ item.title }}" loading="lazy">
+                            {% endif %}
+                            <span class="news-card__category">{{ item.category }}</span>
+                        </div>
+                        <div class="news-card__body">
+                            <time class="news-card__date" datetime="{{ item.date }}">{{ item.date|date('d M Y') }}</time>
+                            <h3 class="news-card__title">{{ item.title }}</h3>
+                        </div>
+                    </a>
+                </article>
+            {% endfor %}
+        </div>
+
+    </div>
+
+</section>

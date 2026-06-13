@@ -1,0 +1,282 @@
+/* assets/styles/blocks/location-block.css
+   ──────────────────────────────────────────── */
+
+.location-block {
+    background: var(--black);
+    padding-left: calc(var(--gutter) + var(--sidebar-w));
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.location-block__inner {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+    max-width: var(--content-max);
+    margin-inline: auto;
+}
+
+.location-block__label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--accent-3);
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.location-block__title {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    color: var(--white);
+    margin-bottom: 1.5rem;
+    line-height: 0.9;
+}
+
+.location-block__address {
+    font-style: normal;
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    border-left: 2px solid var(--accent-3);
+    padding-left: 1rem;
+}
+
+.location-block__features {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+}
+
+.location-block__features li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.85rem;
+    color: var(--light-muted);
+}
+
+.location-block__icon {
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.location-block__link {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    color: var(--accent-3);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    transition: color 0.2s;
+}
+
+.location-block__link:hover {
+    color: var(--white);
+}
+
+/* Mapa */
+.location-block__map-wrap {
+    position: relative;
+}
+
+.location-block__map-placeholder {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.location-block__map-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.3) contrast(1.2) hue-rotate(20deg);
+}
+
+.location-block__map-pin {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    background: var(--accent);
+    color: var(--black);
+    padding: 0.4rem 0.8rem;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    box-shadow: 0 0 0 4px rgba(232, 255, 0, 0.2);
+}
+
+@media (max-width: 900px) {
+    .location-block {
+        padding-left: var(--gutter);
+    }
+
+    .location-block__inner {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* ─────────────────────────────────────────────────────
+   assets/styles/blocks/tickets-cta.css
+   ─────────────────────────────────────────────────────
+   Encapsulado: todo bajo .tickets-cta
+   ───────────────────────────────────────────────────── */
+
+.tickets-cta {
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+    padding-block: clamp(5rem, 12vw, 10rem);
+}
+
+.tickets-cta__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.tickets-cta__bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 40%;
+    filter: saturate(0.3) contrast(1.3) brightness(0.4);
+}
+
+.tickets-cta__bg-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(10, 10, 10, 0.5) 0%, rgba(10, 10, 10, 0.85) 100%);
+}
+
+.tickets-cta__content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+}
+
+.tickets-cta__title {
+    font-size: clamp(4rem, 12vw, 11rem);
+    color: var(--white);
+    line-height: 0.85;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+}
+
+.tickets-cta__sub {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-bottom: 3rem;
+    text-transform: uppercase;
+}
+
+/* Tiers de precio */
+.tickets-cta__tiers {
+    display: flex;
+    justify-content: center;
+    gap: 2px;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+}
+
+.tickets-cta__tier {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 1.2rem 2rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    min-width: 160px;
+    transition: background 0.2s;
+}
+
+.tickets-cta__tier:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.tickets-cta__tier-name {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-transform: uppercase;
+}
+
+.tickets-cta__tier-price {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    color: var(--white);
+    line-height: 1;
+}
+
+.tickets-cta__tier-status {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    padding: 0.2rem 0.5rem;
+    text-transform: uppercase;
+}
+
+.tickets-cta__tier-status--available {
+    background: rgba(0, 229, 255, 0.1);
+    color: var(--accent-3);
+}
+
+.tickets-cta__tier-status--low {
+    background: rgba(255, 60, 0, 0.15);
+    color: var(--accent-2);
+}
+
+/* Botón principal */
+.tickets-cta__btn {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    padding: 1.1rem 3rem;
+    background: var(--accent);
+    color: var(--black);
+    font-weight: 700;
+    transition: background 0.2s, transform 0.2s;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    margin-bottom: 1rem;
+}
+
+.tickets-cta__btn:hover {
+    background: var(--white);
+    transform: translateY(-2px);
+}
+
+.tickets-cta__note {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: rgba(102, 102, 102, 0.7);
+    margin-top: 1rem;
+}
+
+@media (max-width: 640px) {
+    .tickets-cta__tiers {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .tickets-cta__tier {
+        width: 100%;
+        max-width: 280px;
+    }
+}

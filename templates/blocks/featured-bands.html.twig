@@ -1,0 +1,76 @@
+{# templates/blocks/featured-bands.html.twig #}
+{#
+    Parámetros:
+    - bands: colección de entidad Band (con: name, country, genre, image, slug)
+    Si no hay bandas reales, se usa placeholder con picsum.
+#}
+{% set placeholder_bands = [
+    { name: 'DISMEMBER',    country: 'SWE', genre: 'Death Metal',     slug: 'dismember',    seed: 'band01' },
+    { name: 'EYEHATEGOD',   country: 'USA', genre: 'Sludge Metal',    slug: 'eyehategod',   seed: 'band02' },
+    { name: 'CONVERGE',     country: 'USA', genre: 'Hardcore',        slug: 'converge',     seed: 'band03' },
+    { name: 'NAPALM DEATH', country: 'GBR', genre: 'Grindcore',       slug: 'napalm-death', seed: 'band04' },
+    { name: 'TERRORIZER',   country: 'USA', genre: 'Grindcore',       slug: 'terrorizer',   seed: 'band05' },
+    { name: 'REPULSION',    country: 'USA', genre: 'Death/Grind',     slug: 'repulsion',    seed: 'band06' },
+] %}
+{% set band_items = bands is not empty ? bands : placeholder_bands %}
+
+<section class="featured-bands" id="bands" data-controller="featured-bands">
+
+    <header class="featured-bands__header">
+        <div class="featured-bands__label">BANDAS CONFIRMADAS</div>
+        <h2 class="featured-bands__title">CARTEL <span class="featured-bands__title-accent">2026</span></h2>
+        <a href="{{ path('app_bands') }}" class="featured-bands__all-link">
+            Ver todas las bandas →
+        </a>
+    </header>
+
+    {# Grid de bandas #}
+    <div class="featured-bands__grid" data-featured-bands-target="grid">
+        {% for band in band_items %}
+            <article class="band-card"
+                     data-controller="band-card"
+                     data-action="mouseenter->band-card#reveal mouseleave->band-card#hide">
+
+                {# Imagen #}
+                <div class="band-card__img-wrap">
+                    {% if band.image is defined and band.image %}
+                        <img class="band-card__img"
+                             src="{{ asset('uploads/bands/' ~ band.image) }}"
+                             alt="{{ band.name }}"
+                             loading="lazy">
+                    {% else %}
+                        <img class="band-card__img"
+                             src="https://picsum.photos/seed/{{ band.seed ?? band.name|lower|replace({' ': ''}) }}/600/400"
+                             alt="{{ band.name }}"
+                             loading="lazy">
+                    {% endif %}
+                    <div class="band-card__img-overlay" aria-hidden="true"></div>
+                </div>
+
+                {# Info #}
+                <div class="band-card__info">
+                    <span class="band-card__country">{{ band.country }}</span>
+                    <h3 class="band-card__name">{{ band.name }}</h3>
+                    <span class="band-card__genre">{{ band.genre }}</span>
+                </div>
+
+                {# Hover reveal: link #}
+                <div class="band-card__reveal" data-band-card-target="reveal" aria-hidden="true">
+                    <a href="{{ path('app_band_detail', { slug: band.slug }) }}" class="band-card__link">
+                        VER FICHA
+                    </a>
+                </div>
+
+            </article>
+        {% endfor %}
+    </div>
+
+    {# CTA ver más #}
+    <div class="featured-bands__footer">
+        <a href="{{ path('app_bands') }}" class="featured-bands__cta">
+            <span>VER TODAS LAS BANDAS</span>
+            <span class="featured-bands__cta-count">120+</span>
+        </a>
+    </div>
+
+</section>

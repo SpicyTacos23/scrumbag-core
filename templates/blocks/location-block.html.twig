@@ -1,0 +1,56 @@
+{# templates/blocks/location-block.html.twig #}
+<section class="location-block" id="location" data-controller="location-block">
+
+    <div class="location-block__inner">
+
+        <div class="location-block__info">
+            <div class="location-block__label">UBICACIÓN</div>
+            <h2 class="location-block__title">ARENAS DE<br>LA CALAVERA</h2>
+
+            <address class="location-block__address">
+                <p>Carretera de la Sierra, km 42</p>
+                <p>28740 Sierra Norte, Madrid</p>
+            </address>
+
+            <ul class="location-block__features">
+                <li>
+                    <span class="location-block__icon" aria-hidden="true">⛺</span>
+                    <span>Camping gratuito para abonados</span>
+                </li>
+                <li>
+                    <span class="location-block__icon" aria-hidden="true">🚌</span>
+                    <span>Bus lanzadera desde Madrid</span>
+                </li>
+                <li>
+                    <span class="location-block__icon" aria-hidden="true">🚗</span>
+                    <span>Parking habilitado en el recinto</span>
+                </li>
+                <li>
+                    <span class="location-block__icon" aria-hidden="true">🍺</span>
+                    <span>Bares, food trucks y zona chill</span>
+                </li>
+            </ul>
+
+            <a href="{{ path('app_info_transport') }}" class="location-block__link">
+                Cómo llegar →
+            </a>
+        </div>
+
+        <div class="location-block__map-wrap">
+            {# Mapa estático (sustituir por Google Maps embed real) #}
+            <div class="location-block__map-placeholder"
+                 data-location-block-target="map"
+                 aria-label="Mapa de ubicación del festival">
+                <img src="https://picsum.photos/seed/map-terrain/800/600"
+                     alt="Mapa aproximado de la zona del festival"
+                     loading="lazy">
+                <div class="location-block__map-pin" aria-hidden="true">
+                    <span>📍</span>
+                    <strong>VORTEX FEST</strong>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
