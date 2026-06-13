@@ -85,7 +85,7 @@
 
 .hero__title-line {
     display: block;
-    font-size: clamp(5rem, 18vw, 16rem);
+    font-size: clamp(5rem, 18vw, 15rem);
     color: var(--white);
     letter-spacing: -0.03em;
 }
