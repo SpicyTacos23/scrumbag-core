@@ -1,16 +1,4 @@
 {# templates/blocks/bands-marquee.html.twig #}
-{#
-    Parámetros opcionales (inyectados desde el controlador):
-    - marquee_bands: array de strings con nombres de bandas
-    Se usa por defecto una lista hardcoded de ejemplo.
-#}
-{% set default_bands = [
-    'DISMEMBER', 'EYEHATEGOD', 'CONVERGE', 'NAPALM DEATH', 'TERRORIZER',
-    'BOLT THROWER', 'REPULSION', 'AUTOPSY', 'BRUTAL TRUTH', 'MAYHEM',
-    'DARKTHRONE', 'ENTOMBED', 'CARCASS', 'SUFFOCATION', 'MORBID ANGEL',
-    'DEATH', 'OBITUARY', 'CANNIBAL CORPSE', 'DEICIDE', 'NILE'
-] %}
-{% set band_list = marquee_bands ?? default_bands %}
 
 <div class="bands-marquee" id="bands-marquee" data-controller="marquee" aria-hidden="true">
     <div class="bands-marquee__track" data-marquee-target="track">
@@ -18,9 +6,9 @@
         {# Duplicamos para el loop infinito #}
         {% for i in 1..2 %}
             <div class="bands-marquee__group">
-                {% for band in band_list %}
+                {% for band in data.bands.bands %}
+                {{ band.name }}
                     <span class="bands-marquee__item">
-                        {{ band }}
                         <span class="bands-marquee__sep" aria-hidden="true">✦</span>
                     </span>
                 {% endfor %}
