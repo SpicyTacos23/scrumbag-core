@@ -73,6 +73,7 @@
 }
 
 .hero__dates {
+    background-color: black;
     color: var(--light-muted);
 }
 

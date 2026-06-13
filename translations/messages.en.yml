@@ -1,0 +1,14 @@
+event:
+  edition: IV EDITION
+
+tickets:
+  buy: Buy Tickets
+
+bands:
+  all: All Bands
+  bands: Bands
+
+stats:
+  bands: Bands
+  countries: Countries
+  days: Days
