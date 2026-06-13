@@ -2,18 +2,21 @@
 
 namespace App\Provider;
 
+use App\Exception\FileEmptyException;
 use App\Interface\DataTransformInterface;
 use App\Interface\GetDataProviderInterface;
 use DateTime;
 use Override;
-use Symfony\Component\Form\DataTransformerInterface;
+use Symfony\Component\Filesystem\Exception\FileNotFoundException;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class GetDataProvider implements GetDataProviderInterface
 {
     public function __construct(
         private readonly TranslatorInterface $translator,
-        private readonly DataTransformInterface $dataTransform
+        private readonly DataTransformInterface $dataTransform,
+        private readonly KernelInterface $kernel
     ) {}
 
     #[Override]
@@ -53,20 +56,14 @@ final class GetDataProvider implements GetDataProviderInterface
     #[Override]
     public function getBandsData(): array
     {
-        $bands = [
-            'frakaso' => [
-                'name' => 'FRAKASO',
-                'country' => 'UK',
-                'country_name' => 'UK/Catalonia',
-                'genres' => ['d-beat', 'grindcore']
-            ],
-            'vile_species' => [
-                'name' => 'Vile Species',
-                'country' => 'GR',
-                'country_name' => 'Greece',
-                'genres' => ['deathgrind']
-            ]
-        ];
+        $bandsFile = "{$this->kernel->getProjectDir()}/private/bands.json";
+        if (!file_exists($bandsFile)) {
+            throw new FileNotFoundException();
+        }
+        $bands = json_decode(file_get_contents($bandsFile), true);
+        if (!$bands) {
+            throw new FileEmptyException('bands.json');
+        }
         return [
             'bands' => $bands,
             'countries' => $this->dataTransform->getBandCountries($bands)
