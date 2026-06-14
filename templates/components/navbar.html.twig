@@ -5,17 +5,17 @@
         {# Logo #}
         <a href="{{ path('app_homepage') }}" class="navbar__logo" aria-label="Scrumbag Fest — inicio">
             <span class="navbar__logo-text">SCRUMBAG</span>
-            <span class="navbar__logo-year">FEST '26</span>
+            <span class="navbar__logo-year">FEST</span>
         </a>
 
-        {# Navegación principal #}
+        {# NAVBAR #}
         <nav class="navbar__nav" aria-label="Navegación principal">
             <ul class="navbar__links">
-                <li><a href="#bands" class="navbar__link" data-navbar-target="link">Bandas</a></li>
-                <li><a href="#schedule" class="navbar__link" data-navbar-target="link">Horario</a></li>
-                <li><a href="#info" class="navbar__link" data-navbar-target="link">Info</a></li>
-                <li><a href="#news" class="navbar__link" data-navbar-target="link">Noticias</a></li>
-                <li><a href="#location" class="navbar__link" data-navbar-target="link">Ubicación</a></li>
+                <li><a href="#bands" class="navbar__link" data-navbar-target="link">{{ 'navbar.bands'|trans|upper }}</a></li>
+                <li><a href="#info" class="navbar__link" data-navbar-target="link">{{ 'navbar.info'|trans|upper }}</a></li>
+                <li><a href="#news" class="navbar__link" data-navbar-target="link">{{ 'navbar.news'|trans|upper }}</a></li>
+                <li><a href="#schedule" class="navbar__link" data-navbar-target="link">{{ 'navbar.schedule'|trans|upper }}</a></li>
+                <li><a href="#location" class="navbar__link" data-navbar-target="link">{{ 'navbar.location'|trans|upper }}</a></li>
             </ul>
         </nav>
 
@@ -36,15 +36,15 @@
         </button>
     </div>
 
-    {# Menú mobile desplegable #}
+    {# Mobile drop menu #}
     <div class="navbar__mobile-menu" data-navbar-target="mobileMenu" aria-hidden="true">
         <nav>
             <ul class="navbar__mobile-links">
-                <li><a href="#bands"    data-action="click->navbar#closeMenu">Bandas</a></li>
-                <li><a href="#schedule" data-action="click->navbar#closeMenu">Horario</a></li>
-                <li><a href="#info"     data-action="click->navbar#closeMenu">Info</a></li>
-                <li><a href="#news"     data-action="click->navbar#closeMenu">Noticias</a></li>
-                <li><a href="#location" data-action="click->navbar#closeMenu">Ubicación</a></li>
+                <li><a href="#bands"    data-action="click->navbar#closeMenu">{{ 'navbar.bands'|trans|upper }}</a></li>
+                <li><a href="#schedule" data-action="click->navbar#closeMenu">{{ 'navbar.schedule'|trans|upper }}</a></li>
+                <li><a href="#info"     data-action="click->navbar#closeMenu">{{ 'navbar.info'|trans|upper }}</a></li>
+                <li><a href="#news"     data-action="click->navbar#closeMenu">{{ 'navbar.news'|trans|upper }}</a></li>
+                <li><a href="#location" data-action="click->navbar#closeMenu">{{ 'navbar.location'|trans|upper }}</a></li>
                 <li><a href="#tickets"  data-action="click->navbar#closeMenu" class="mobile-cta">TICKETS</a></li>
             </ul>
         </nav>

@@ -1,12 +1,22 @@
-event:
-  edition: IV EDITION
-
-tickets:
-  buy: Buy Tickets
-
 bands:
   all: All Bands
   bands: Bands
+
+event:
+  edition: IV EDITION
+
+featured-bands:
+  confirmed: Bands Confirmed
+  details: Details
+  lineup: LineUp
+  see-all: See All Bands
+
+navbar:
+  bands: bands
+  info: info
+  news: news
+  schedule: schedule
+  location: location
 
 schedule:
   complete: see complete schedule
@@ -21,8 +31,5 @@ stats:
   countries: Countries
   days: Days
 
-featured-bands:
-  confirmed: Bands Confirmed
-  details: Details
-  lineup: LineUp
-  see-all: See All Bands
+tickets:
+  buy: Buy Tickets
