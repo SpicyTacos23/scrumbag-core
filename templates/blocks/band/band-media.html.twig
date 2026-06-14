@@ -1,0 +1,65 @@
+{# templates/blocks/band-media.html.twig #}
+{#
+    Parámetro:
+    - band: entidad Band (youtube_id, bandcamp_embed_id, spotify_embed_id)
+#}
+{% set b = band ?? { youtube_id: 'dQw4w9WgXcQ' } %}
+
+<section class="band-media" data-controller="band-media">
+
+    <header class="band-media__header">
+        <span class="band-media__label">ESCUCHA</span>
+        <h2 class="band-media__title">SONIDO EN CRUDO</h2>
+    </header>
+
+    <div class="band-media__grid">
+
+        {# Video destacado #}
+        <div class="band-media__video">
+            {% if b.youtube_id is defined and b.youtube_id %}
+                <div class="band-media__video-embed">
+                    <iframe
+                        src="https://www.youtube.com/embed/{{ b.youtube_id }}"
+                        title="Video de {{ b.name ?? 'la banda' }}"
+                        loading="lazy"
+                        allow="encrypted-media; picture-in-picture"
+                        allowfullscreen></iframe>
+                </div>
+            {% else %}
+                <div class="band-media__video-embed band-media__video-embed--placeholder">
+                    <img src="https://picsum.photos/seed/{{ b.seed ?? 'media' }}-video/800/450" alt="">
+                    <span class="band-media__placeholder-text">Vídeo próximamente</span>
+                </div>
+            {% endif %}
+        </div>
+
+        {# Reproductor Bandcamp / Spotify #}
+        <div class="band-media__player">
+            {% if b.bandcamp_embed_id is defined and b.bandcamp_embed_id %}
+                <iframe
+                    class="band-media__bandcamp"
+                    src="https://bandcamp.com/EmbeddedPlayer/album={{ b.bandcamp_embed_id }}/size=large/bgcol=111111/linkcol=e8ff00/tracklist=true/artwork=small/transparent=true/"
+                    seamless
+                    loading="lazy"
+                    title="Reproductor Bandcamp">
+                </iframe>
+            {% elseif b.spotify_embed_id is defined and b.spotify_embed_id %}
+                <iframe
+                    class="band-media__spotify"
+                    src="https://open.spotify.com/embed/artist/{{ b.spotify_embed_id }}?utm_source=generator&theme=0"
+                    loading="lazy"
+                    allow="encrypted-media"
+                    title="Reproductor Spotify">
+                </iframe>
+            {% else %}
+                <div class="band-media__player-placeholder">
+                    <p>🎧</p>
+                    <p>Reproductor disponible próximamente</p>
+                    <a href="#" class="band-media__placeholder-link">Escuchar en Bandcamp →</a>
+                </div>
+            {% endif %}
+        </div>
+
+    </div>
+
+</section>

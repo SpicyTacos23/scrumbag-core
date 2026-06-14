@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Interface\GetDataProviderInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -16,8 +17,10 @@ final class BandsController extends AbstractController
     }
 
     #[Route('{slug}', name: 'app_band_detail', methods: ['GET'])]
-    public function get(string $slug): Response
+    public function get(string $slug, GetDataProviderInterface $getDataProvider): Response
     {
-        return new Response($slug);
+        return $this->render('blocks/band/band-detail.html.twig', [
+            'band' => $getDataProvider->getBandData($slug)
+        ]);
     }
 }

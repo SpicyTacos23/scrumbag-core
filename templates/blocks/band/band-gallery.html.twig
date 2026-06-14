@@ -1,0 +1,53 @@
+{# templates/blocks/band-gallery.html.twig #}
+{#
+    Parámetro:
+    - band: entidad Band (gallery: array de imágenes [{ filename, alt }])
+#}
+{% set placeholder_gallery = [
+    { seed: 'gallery01', alt: 'Concierto en directo 1' },
+    { seed: 'gallery02', alt: 'Concierto en directo 2' },
+    { seed: 'gallery03', alt: 'Backstage' },
+    { seed: 'gallery04', alt: 'Público en el pit' },
+    { seed: 'gallery05', alt: 'Concierto en directo 3' },
+    { seed: 'gallery06', alt: 'Equipo en el escenario' },
+] %}
+{% set gallery = (band is defined and band.gallery is defined and band.gallery is not empty) ? band.gallery : placeholder_gallery %}
+
+	<section class="band-gallery" data-controller="band-gallery"> <header class="band-gallery__header">
+		<span class="band-gallery__label">GALERÍA</span>
+		<h2 class="band-gallery__title">EN DIRECTO</h2>
+	</header>
+
+	<div class="band-gallery__grid">
+		{% for photo in gallery %}
+			<button class="band-gallery__item" type="button" data-action="click->band-gallery#open" data-band-gallery-index-param="{{ loop.index0 }}" aria-label="Ampliar foto {{ loop.index }}">
+				{% if photo.filename is defined and photo.filename %}
+					<img src="{{ asset('uploads/bands/gallery/' ~ photo.filename) }}" alt="{{ photo.alt|default('Foto de ' ~ (band.name ?? 'la banda')) }}" loading="lazy">
+				{% else %}
+					<img src="https://picsum.photos/seed/{{ photo.seed }}/600/600" alt="{{ photo.alt|default('Foto de ' ~ (band.name ?? 'la banda')) }}" loading="lazy">
+				{% endif %}
+				<span class="band-gallery__zoom" aria-hidden="true">+</span>
+			</button>
+		{% endfor %}
+	</div>
+
+	{# Lightbox modal #}
+	<div class="band-gallery__lightbox" data-band-gallery-target="lightbox" aria-hidden="true" aria-modal="true" role="dialog" aria-label="Visor de fotos">
+		<div class="band-gallery__lightbox-backdrop" data-action="click->band-gallery#close"></div>
+		<div class="band-gallery__lightbox-inner">
+			<button class="band-gallery__lightbox-close" data-action="click->band-gallery#close" aria-label="Cerrar">✕</button>
+			<button class="band-gallery__lightbox-nav band-gallery__lightbox-nav--prev" data-action="click->band-gallery#prev" aria-label="Foto anterior">‹</button>
+			<img class="band-gallery__lightbox-img" data-band-gallery-target="image" src="" alt="">
+			<button class="band-gallery__lightbox-nav band-gallery__lightbox-nav--next" data-action="click->band-gallery#next" aria-label="Foto siguiente">›</button>
+			<div class="band-gallery__lightbox-counter" data-band-gallery-target="counter"></div>
+		</div>
+	</div>
+
+	{# Datos para el controlador Stimulus #}
+	<script type="application/json" data-band-gallery-target="data">
+		{{ gallery|map(p => p.filename is defined and p.filename
+            ? asset('uploads/bands/gallery/' ~ p.filename)
+            : 'https://picsum.photos/seed/' ~ p.seed ~ '/1200/1200')|json_encode|raw }}
+	</script>
+
+</section>

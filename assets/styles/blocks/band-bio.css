@@ -1,0 +1,112 @@
+/* assets/styles/blocks/band-bio.css
+   ──────────────────────────────────────────
+   Encapsulado: todo bajo .band-bio
+   ─────────────────────────────────────────── */
+
+.band-bio {
+    background: var(--black);
+    padding-left: calc(var(--gutter) + var(--sidebar-w));
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.band-bio__inner {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: clamp(2rem, 5vw, 5rem);
+    max-width: var(--content-max);
+    margin-inline: auto;
+}
+
+/* ── Contenido principal ── */
+.band-bio__label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    margin-bottom: 1.25rem;
+}
+
+.band-bio__text {
+    font-size: clamp(0.95rem, 1.3vw, 1.15rem);
+    color: var(--light);
+    line-height: 1.85;
+    max-width: 700px;
+}
+
+.band-bio__text p { margin-bottom: 1.25rem; }
+.band-bio__text p:last-child { margin-bottom: 0; }
+
+/* ── Sidebar ── */
+.band-bio__sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.band-bio__block-title {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+/* Tags de influencias */
+.band-bio__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.band-bio__tag {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    padding: 0.4rem 0.8rem;
+    background: var(--dark-mid);
+    color: var(--light-muted);
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.band-bio__tag:hover { color: var(--accent); border-color: var(--accent); }
+
+/* Facts */
+.band-bio__facts {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.band-bio__fact {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 0.85rem;
+}
+
+.band-bio__fact dt {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-transform: uppercase;
+}
+
+.band-bio__fact dd {
+    color: var(--white);
+    font-weight: 500;
+    text-align: right;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+    .band-bio { padding-left: var(--gutter); }
+    .band-bio__inner { grid-template-columns: 1fr; }
+    .band-bio__sidebar { flex-direction: row; flex-wrap: wrap; gap: 2rem; }
+    .band-bio__block { flex: 1; min-width: 240px; }
+}

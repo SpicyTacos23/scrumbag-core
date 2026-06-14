@@ -1,0 +1,45 @@
+{# templates/blocks/band-slot.html.twig #}
+{#
+    Parámetro:
+    - band: entidad Band (slot_day, slot_time, slot_stage, slot_date)
+#}
+{% set b = band ?? {
+    slot_day: 'Viernes',
+    slot_date: '17 jul 2026',
+    slot_time: '20:30',
+    slot_stage: 'Escenario Principal'
+} %}
+
+<section class="band-slot" data-controller="band-slot">
+
+    <div class="band-slot__inner">
+
+        <div class="band-slot__icon" aria-hidden="true">▶</div>
+
+        <div class="band-slot__info">
+            <span class="band-slot__label">ACTÚAN EN VORTEX FEST</span>
+            <div class="band-slot__details">
+                <div class="band-slot__detail">
+                    <span class="band-slot__detail-value">{{ b.slot_day ?? 'Por confirmar' }}</span>
+                    <span class="band-slot__detail-key">{{ b.slot_date ?? '' }}</span>
+                </div>
+                <div class="band-slot__sep" aria-hidden="true"></div>
+                <div class="band-slot__detail">
+                    <span class="band-slot__detail-value">{{ b.slot_time ?? '--:--' }}</span>
+                    <span class="band-slot__detail-key">HORA</span>
+                </div>
+                <div class="band-slot__sep" aria-hidden="true"></div>
+                <div class="band-slot__detail">
+                    <span class="band-slot__detail-value">{{ b.slot_stage ?? 'Por confirmar' }}</span>
+                    <span class="band-slot__detail-key">ESCENARIO</span>
+                </div>
+            </div>
+        </div>
+
+        <a href="{{ path('app_schedule') }}" class="band-slot__cta">
+            VER HORARIO COMPLETO →
+        </a>
+
+    </div>
+
+</section>

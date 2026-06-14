@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ band.name }}
+	({{ band.country }}) — SCRUMBAG FEST
+{% endblock %}
+
+{#{% block meta_description %}{{ band.genre }} desde {{ band.country }}. {{ band.bio|slice(0, 140) }}…{% endblock %}#}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags('band-bio') }}
+	{{ encore_entry_link_tags('band-gallery') }}
+	{{ encore_entry_link_tags('band-header') }}
+	{{ encore_entry_link_tags('band-media') }}
+{% endblock %}
+
+{% block body %}
+
+	{# ──────────────────────────────────────────
+	       BLOQUE 1: HEADER (logo, data, media)
+	    ────────────────────────────────────────── #}
+	{% include 'blocks/band/band-header.html.twig' with { band: band } %}
+
+	{# ──────────────────────────────────────────
+	       BLOQUE 2: BIOGRAPHY
+	    ────────────────────────────────────────── #}
+	{% include 'blocks/band/band-bio.html.twig' with { band: band } %}
+
+	{# ──────────────────────────────────────────
+	       BLOQUE 3: PHOTO GALLERY
+	    ────────────────────────────────────────── #}
+	{% include 'blocks/band/band-gallery.html.twig' with { band: band } %}
+
+	{# ──────────────────────────────────────────
+	       BLOQUE 4: MEDIA PLAYER
+	    ────────────────────────────────────────── #}
+	{% include 'blocks/band/band-media.html.twig' with { band: band } %}
+
+	{# ──────────────────────────────────────────
+	       BLOQUE 5: FESTIVAL BAND DATA
+	    ────────────────────────────────────────── #}
+	{% include 'blocks/band/band-slot.html.twig' with { band: band } %}
+
+{% endblock %}

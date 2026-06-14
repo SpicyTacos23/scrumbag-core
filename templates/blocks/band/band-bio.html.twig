@@ -1,0 +1,59 @@
+{# templates/blocks/band-bio.html.twig #}
+<section class="band-bio" data-controller="band-bio">
+	<div
+		class="band-bio__inner">
+
+		{# Columna principal: biografía #}
+		<div class="band-bio__content">
+			<span class="band-bio__label">BIOGRAFÍA</span>
+			<div class="band-bio__text">
+				{% if b.bio is defined %}
+					{{ b.bio|raw }}
+				{% else %}
+					Falta bio...
+				{% endif %}
+
+			</div>
+		</div>
+
+		{# Sidebar: datos rápidos #}
+		<aside class="band-bio__sidebar">
+
+			{% if b.influences is defined and b.influences is not empty %}
+				<div class="band-bio__block">
+					<h3 class="band-bio__block-title">INFLUENCIAS</h3>
+					<ul class="band-bio__tags">
+						{% for influence in b.influences %}
+							<li class="band-bio__tag">{{ influence }}</li>
+						{% endfor %}
+					</ul>
+				</div>
+			{% endif %}
+
+			<div class="band-bio__block">
+				<h3 class="band-bio__block-title">DATOS RÁPIDOS</h3>
+				<dl class="band-bio__facts">
+					<div class="band-bio__fact">
+						<dt>País</dt>
+						<dd>{{ b.country ?? 'SWE' }}</dd>
+					</div>
+					<div class="band-bio__fact">
+						<dt>Género</dt>
+						<dd>{{ b.genre ?? 'Death Metal' }}</dd>
+					</div>
+					<div class="band-bio__fact">
+						<dt>Formación</dt>
+						<dd>{{ b.year_formed ?? 1988 }}</dd>
+					</div>
+					<div class="band-bio__fact">
+						<dt>Estado</dt>
+						<dd>Activo</dd>
+					</div>
+				</dl>
+			</div>
+
+		</aside>
+
+	</div>
+
+</section>

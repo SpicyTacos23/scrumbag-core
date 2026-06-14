@@ -12,3 +12,9 @@ stats:
   bands: Bands
   countries: Countries
   days: Days
+
+featured-bands:
+  confirmed: Bands Confirmed
+  details: Details
+  lineup: LineUp
+  see-all: See All Bands

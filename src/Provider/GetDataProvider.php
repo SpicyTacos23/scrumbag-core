@@ -13,11 +13,15 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class GetDataProvider implements GetDataProviderInterface
 {
+    private array $bands;
+
     public function __construct(
         private readonly TranslatorInterface $translator,
         private readonly DataTransformInterface $dataTransform,
         private readonly KernelInterface $kernel
-    ) {}
+    ) {
+        $this->loadBands();
+    }
 
     #[Override]
     public function getLocationData(): array
@@ -56,17 +60,32 @@ final class GetDataProvider implements GetDataProviderInterface
     #[Override]
     public function getBandsData(): array
     {
+        return [
+            'bands' => $this->bands,
+            'countries' => $this->dataTransform->getBandCountries($this->bands)
+        ];
+    }
+
+    public function getBandData(string $band): array
+    {
+        return $this->bands[$band] ?? [];
+    }
+
+    private function loadBands(): void
+    {
+        $bands = json_decode(file_get_contents($this->getBandsFile()), true);
+        if (!$bands) {
+            throw new FileEmptyException('bands.json');
+        }
+        $this->bands = $bands;
+    }
+
+    private function getBandsFile(): string
+    {
         $bandsFile = "{$this->kernel->getProjectDir()}/private/bands.json";
         if (!file_exists($bandsFile)) {
             throw new FileNotFoundException();
         }
-        $bands = json_decode(file_get_contents($bandsFile), true);
-        if (!$bands) {
-            throw new FileEmptyException('bands.json');
-        }
-        return [
-            'bands' => $bands,
-            'countries' => $this->dataTransform->getBandCountries($bands)
-        ];
+        return $bandsFile;
     }
 }

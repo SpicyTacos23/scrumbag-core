@@ -1,6 +1,6 @@
 /* assets/styles/blocks/featured-bands.css
    ──────────────────────────────────────────
-   Encapsulado: .featured-bands y .band-card
+   Encapsulated: .featured-bands and .band-card
    ─────────────────────────────────────────── */
 
 .featured-bands {
@@ -45,11 +45,47 @@
 
 .featured-bands__all-link:hover { color: var(--accent); }
 
-/* ── Grid ── */
+/* ── Scrollable wrapper ──
+   Fixed height container so users can scroll through all bands
+   while only ~2 rows (8 cards) are visible at a time. A fade
+   gradient at the bottom hints there's more content below. ── */
+.featured-bands__scroll-wrap {
+    position: relative;
+    max-height: 70vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent) var(--black);
+}
+
+/* Custom scrollbar (Webkit) */
+.featured-bands__scroll-wrap::-webkit-scrollbar { width: 6px; }
+.featured-bands__scroll-wrap::-webkit-scrollbar-track { background: var(--black); }
+.featured-bands__scroll-wrap::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 0;
+}
+
+/* Fade-to-black gradient pinned to the bottom of the scroll area.
+   Stays fixed while content scrolls underneath it. */
+.featured-bands__fade {
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 90px;
+    margin-top: -90px;
+    background: linear-gradient(to bottom, transparent 0%, var(--black) 100%);
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* ── Grid: 4 columns with spacing ── */
 .featured-bands__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 2px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+    padding-bottom: 1.25rem;
 }
 
 /* ── Band card ── */
@@ -83,60 +119,87 @@
     inset: 0;
     background: linear-gradient(
         to top,
-        rgba(10,10,10,0.9) 0%,
-        rgba(10,10,10,0.3) 50%,
-        transparent 100%
+        rgba(10,10,10,0.6) 0%,
+        rgba(10,10,10,0.1) 35%,
+        transparent 70%
     );
     transition: opacity 0.3s;
 }
 
-/* Info base (siempre visible) */
-.band-card__info {
+/* Country / genre, floating over the image (top-left) */
+.band-card__overlay-meta {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 1.2rem;
+    top: 0.8rem;
+    left: 0.8rem;
     z-index: 2;
-    transition: transform 0.3s var(--ease-out);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
 }
 
-.band-card:hover .band-card__info { transform: translateY(-4px); }
-
 .band-card__country {
-    display: block;
+    display: inline-block;
+    width: fit-content;
     font-family: var(--font-mono);
     font-size: 0.6rem;
     letter-spacing: 0.2em;
-    color: var(--accent);
-    margin-bottom: 0.2rem;
-}
-
-.band-card__name {
-    font-family: var(--font-display);
-    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
-    color: var(--white);
-    line-height: 1;
-    margin-bottom: 0.3rem;
+    color: var(--black);
+    background: var(--accent);
+    padding: 0.15rem 0.45rem;
+    font-weight: 700;
 }
 
 .band-card__genre {
     font-family: var(--font-mono);
     font-size: 0.65rem;
     letter-spacing: 0.1em;
-    color: var(--muted);
+    color: var(--light);
     text-transform: uppercase;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.8);
 }
 
-/* Hover reveal */
+/* Band name: full-width bar pinned to the bottom of the card,
+   with its own background so the text stays readable over any image. */
+.band-card__name-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 2;
+    padding: 0.85rem 1rem;
+    background: var(--dark-mid);
+    border-top: 2px solid var(--accent);
+    transition: background 0.25s, border-color 0.25s;
+}
+
+.band-card:hover .band-card__name-bar {
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+.band-card__name {
+    font-family: var(--font-display);
+    font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+    color: var(--white);
+    line-height: 1;
+    letter-spacing: 0.02em;
+    transition: color 0.25s;
+}
+
+.band-card:hover .band-card__name { color: var(--black); }
+
+/* Hover reveal: covers the image area only, leaving the
+   name bar visible at the bottom of the card. */
 .band-card__reveal {
     position: absolute;
     inset: 0;
+    bottom: var(--band-card-name-bar-h, 3rem);
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(10,10,10,0.5);
-    z-index: 3;
+    background: rgba(10,10,10,0.55);
+    z-index: 1;
     opacity: 0;
     transition: opacity 0.3s;
 }
@@ -158,7 +221,7 @@
 
 /* ── CTA footer ── */
 .featured-bands__footer {
-    margin-top: 2px;
+    margin-top: 2rem;
 }
 
 .featured-bands__cta {
@@ -186,9 +249,14 @@
 }
 
 /* ── Responsive ── */
+@media (max-width: 1100px) {
+    .featured-bands__grid { grid-template-columns: repeat(3, 1fr); }
+}
+
 @media (max-width: 768px) {
     .featured-bands { padding-left: var(--gutter); }
-    .featured-bands__grid { grid-template-columns: repeat(2, 1fr); }
+    .featured-bands__grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .featured-bands__scroll-wrap { max-height: 80vh; }
 }
 
 @media (max-width: 480px) {

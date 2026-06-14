@@ -1,0 +1,98 @@
+{# templates/blocks/band-header.html.twig #}
+{#
+    Parámetro:
+    - band: entidad Band (name, country, genre, bio, logo, photo, slug, year_formed, label, members[])
+    Placeholder por defecto si no llega entidad real.
+#}
+{% set b = band ?? {
+    name: 'DISMEMBER',
+    country: 'SWE',
+    genre: 'Death Metal',
+    year_formed: 1988,
+    label: 'Sello independiente',
+    slug: 'dismember',
+    seed: 'band01',
+    members: ['Matti Kärki — Voz', 'Fred Estby — Batería', 'David Blomqvist — Guitarra', 'Robert Sennebäck — Guitarra', 'Tobias Cristiansson — Bajo']
+} %}
+
+	<section
+	class="band-header" data-controller="band-header"> {# Fondo con foto promocional #}
+	<div class="band-header__bg" aria-hidden="true">
+		{% if b.photo is defined and b.photo %}
+			<img class="band-header__bg-img" src="{{ asset('uploads/bands/' ~ b.photo) }}" alt="">
+		{% else %}
+			<img class="band-header__bg-img" src="https://picsum.photos/seed/{{ b.seed ?? b.name }}-bg/1600/700" alt="">
+		{% endif %}
+		<div class="band-header__bg-overlay"></div>
+		<div class="band-header__noise"></div>
+	</div>
+
+	{# Breadcrumb / volver #}
+	<nav class="band-header__breadcrumb" aria-label="Ruta de navegación">
+		<a href="{{ path('app_homepage') }}#bands">← VOLVER AL CARTEL</a>
+	</nav>
+
+	<div
+		class="band-header__content">
+
+		{# Logo de la banda #}
+		<div class="band-header__logo-wrap">
+			{% if b.logo is defined and b.logo %}
+				<img class="band-header__logo" src="{{ asset('uploads/bands/' ~ b.logo) }}" alt="Logo de {{ b.name }}">
+			{% else %}
+				<div class="band-header__logo-fallback">
+					<span>{{ b.name|slice(0, 1) }}</span>
+				</div>
+			{% endif %}
+		</div>
+
+		{# Info principal #}
+		<div class="band-header__info">
+			<div class="band-header__meta">
+				<span class="band-header__country">{{ b.country }}</span>
+				<span class="band-header__sep" aria-hidden="true">///</span>
+				<span class="band-header__genre">{{ b.genres|join('/') }}</span>
+				{% if b.year_formed is defined %}
+					<span class="band-header__sep" aria-hidden="true">///</span>
+					<span class="band-header__year">DESDE
+						{{ b.year_formed }}</span>
+				{% endif %}
+			</div>
+
+			<h1 class="band-header__name">{{ b.name }}</h1>
+
+			{% if b.label is defined and b.label %}
+				<p class="band-header__label">{{ b.label }}</p>
+			{% endif %}
+
+			{# Miembros #}
+			{% if b.members is defined and b.members is not empty %}
+				<ul class="band-header__members">
+					{% for member in b.members %}
+						<li>{{ member }}</li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+
+			{# Redes / enlaces externos #}
+			<div class="band-header__links">
+				{% if b.social_facebook is defined and b.social_facebook %}
+					<a href="{{ b.social_facebook }}" target="_blank" rel="noopener" class="band-header__link">FACEBOOK</a>
+				{% endif %}
+				{% if b.social_instagram is defined and b.social_instagram %}
+					<a href="{{ b.social_instagram }}" target="_blank" rel="noopener" class="band-header__link">INSTAGRAM</a>
+				{% endif %}
+				{% if b.website is defined and b.website %}
+					<a href="{{ b.website }}" target="_blank" rel="noopener" class="band-header__link">WEB</a>
+				{% endif %}
+				{% if b.social_facebook is not defined and b.social_instagram is not defined and b.website is not defined %}
+					<a href="#" target="_blank" rel="noopener" class="band-header__link">FACEBOOK</a>
+					<a href="#" target="_blank" rel="noopener" class="band-header__link">INSTAGRAM</a>
+					<a href="#" target="_blank" rel="noopener" class="band-header__link">BANDCAMP</a>
+				{% endif %}
+			</div>
+		</div>
+
+	</div>
+
+</section>
