@@ -1,33 +1,33 @@
 {# templates/blocks/schedule-preview.html.twig #}
-<section class="schedule-preview" id="schedule" data-controller="schedule-preview">
+<section class="schedule-preview" id="schedule" data-controller="schedule_preview">
 
     <header class="schedule-preview__header">
-        <div class="schedule-preview__label">HORARIO</div>
-        <h2 class="schedule-preview__title">PROGRAMA</h2>
+        <div class="schedule-preview__label">{{ 'schedule.schedule'|trans|upper }}</div>
+        <h2 class="schedule-preview__title">{{ 'schedule.program'|trans|upper }}</h2>
     </header>
 
     {# Tabs de días #}
     <div class="schedule-preview__tabs" role="tablist" aria-label="Días del festival">
         <button class="schedule-preview__tab schedule-preview__tab--active"
                 role="tab" aria-selected="true" aria-controls="day-1"
-                data-action="click->schedule-preview#switchDay"
+                data-action="click->schedule_preview#switchDay"
                 data-day="1">
-            <span class="schedule-preview__tab-day">VIE</span>
-            <span class="schedule-preview__tab-date">17 JUL</span>
+            <span class="schedule-preview__tab-day">{{ 'schedule.thursday'|trans }}</span>
+            <span class="schedule-preview__tab-date">10 SEP</span>
         </button>
         <button class="schedule-preview__tab"
                 role="tab" aria-selected="false" aria-controls="day-2"
-                data-action="click->schedule-preview#switchDay"
+                data-action="click->schedule_preview#switchDay"
                 data-day="2">
-            <span class="schedule-preview__tab-day">SÁB</span>
-            <span class="schedule-preview__tab-date">18 JUL</span>
+            <span class="schedule-preview__tab-day">{{ 'schedule.friday'|trans }}</span>
+            <span class="schedule-preview__tab-date">11 SEP</span>
         </button>
         <button class="schedule-preview__tab"
                 role="tab" aria-selected="false" aria-controls="day-3"
-                data-action="click->schedule-preview#switchDay"
+                data-action="click->schedule_preview#switchDay"
                 data-day="3">
-            <span class="schedule-preview__tab-day">DOM</span>
-            <span class="schedule-preview__tab-date">19 JUL</span>
+            <span class="schedule-preview__tab-day">{{ 'schedule.saturday'|trans }}</span>
+            <span class="schedule-preview__tab-date">12 SEP</span>
         </button>
     </div>
 
@@ -79,7 +79,7 @@
 
     <div class="schedule-preview__footer">
         <a href="{{ path('app_schedule') }}" class="schedule-preview__full-link">
-            VER HORARIO COMPLETO →
+            {{ 'schedule.complete'|trans|upper }} →
         </a>
     </div>
 

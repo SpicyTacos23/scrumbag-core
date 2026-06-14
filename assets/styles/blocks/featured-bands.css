@@ -6,6 +6,8 @@
 .featured-bands {
     background: var(--black);
     padding-left: calc(var(--gutter) + var(--sidebar-w));
+    max-width: 90%;
+    margin-left: 5%;
 }
 
 /* ── Header ── */

@@ -8,6 +8,14 @@ bands:
   all: All Bands
   bands: Bands
 
+schedule:
+  complete: see complete schedule
+  thursday: THU
+  friday: FRI
+  saturday: SAT
+  schedule: schedule
+  program: program
+
 stats:
   bands: Bands
   countries: Countries
