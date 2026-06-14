@@ -1,72 +1,42 @@
 {# templates/blocks/video-block.html.twig #}
 {#
-    Parámetro opcional:
-    - video_id: ID de YouTube del aftermovie
+    Optional parameter:
+    - video_path: path to the local promo video (relative to the build/ dir)
 #}
-{% set yt_id = video_id ?? 'dQw4w9WgXcQ' %}
+{% set video_src = video_path ?? asset('build/video/promo.mp4') %}
 
-<section class="video-block" data-controller="video-block">
+	<section class="video-block" data-controller="video_block"> <div class="video-block__content">
+		<div class="video-block__meta">
+			<span class="video-block__label">PROMO</span>
+			<h2 class="video-block__title">
+				Scrumbag Fest<br><span>{{ data.date.year }}</span>
+			</h2>
+			<p class="video-block__desc">
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+				                Tria dias de inferno sonoro en las montañas. Sin postureo.
+				                Sin mainstream. Solo música de verdad.
+			</p>
+		</div>
 
-    <div class="video-block__content">
-        <div class="video-block__meta">
-            <span class="video-block__label">AFTERMOVIE</span>
-            <h2 class="video-block__title">
-                Scrumbag Fest<br><span>2025</span>
-            </h2>
-            <p class="video-block__desc">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Tria dias de inferno sonoro en las montañas. Sin postureo.
-                Sin mainstream. Solo música de verdad.
-            </p>
-            <a href="https://youtu.be/{{ yt_id }}"
-               class="video-block__play-link"
-               data-action="click->video-block#openModal"
-               data-video-block-video-id-param="{{ yt_id }}"
-               aria-label="Reproducir aftermovie">
-                <span class="video-block__play-icon" aria-hidden="true">▶</span>
-                <span>REPRODUCIR</span>
-            </a>
-        </div>
+		{# Thumbnail with play overlay #}
+		<div class="video-block__thumb-wrap" data-action="click->video_block#openModal" data-video_block-video-src-param="{{ video_src }}" role="button" tabindex="0" aria-label="Reproducir promo">
+			<img class="video-block__thumb" src="{{ asset('build/images/promo_thumbnail.png') }}" alt="Promo Scrumbag Fest 2025" loading="lazy" onerror="this.src='https://picsum.photos/seed/aftermovie/1280/720'">
+			<div class="video-block__thumb-overlay" aria-hidden="true">
+				<span class="video-block__big-play" aria-hidden="true">▶</span>
+			</div>
+		</div>
+	</div>
 
-        {# Thumbnail con play overlay #}
-        <div class="video-block__thumb-wrap"
-             data-action="click->video-block#openModal"
-             data-video-block-video-id-param="{{ yt_id }}"
-             role="button"
-             tabindex="0"
-             aria-label="Reproducir aftermovie">
-            <img class="video-block__thumb"
-                 src="https://img.youtube.com/vi/{{ yt_id }}/maxresdefault.jpg"
-                 alt="Aftermovie Vortex Fest 2025"
-                 loading="lazy"
-                 onerror="this.src='https://picsum.photos/seed/aftermovie/1280/720'">
-            <div class="video-block__thumb-overlay" aria-hidden="true">
-                <span class="video-block__big-play" aria-hidden="true">▶</span>
-            </div>
-        </div>
-    </div>
-
-    {# Modal de video (gestionado por Stimulus) #}
-    <div class="video-block__modal"
-         data-video-block-target="modal"
-         aria-modal="true"
-         role="dialog"
-         aria-label="Reproductor de video"
-         aria-hidden="true">
-        <div class="video-block__modal-backdrop"
-             data-action="click->video-block#closeModal"></div>
-        <div class="video-block__modal-inner">
-            <button class="video-block__modal-close"
-                    data-action="click->video-block#closeModal"
-                    aria-label="Cerrar video">✕</button>
-            <div class="video-block__iframe-wrap">
-                <iframe data-video-block-target="iframe"
-                        src=""
-                        title="Aftermovie Vortex Fest"
-                        allow="autoplay; encrypted-media"
-                        allowfullscreen></iframe>
-            </div>
-        </div>
-    </div>
-
+	{# Video modal (managed by Stimulus) #}
+	<div class="video-block__modal" data-video_block-target="modal" aria-modal="true" role="dialog" aria-label="Reproductor de video" aria-hidden="true" tabindex="-1">
+		<div class="video-block__modal-backdrop" data-action="click->video_block#closeModal"></div>
+		<div class="video-block__modal-inner">
+			<button class="video-block__modal-close" data-action="click->video_block#closeModal" aria-label="Cerrar video">✕</button>
+			<div class="video-block__iframe-wrap">
+				<video data-video_block-target="video" controls playsinline preload="none">
+					Tu navegador no soporta vídeo HTML5.
+				</video>
+			</div>
+		</div>
+	</div>
 </section>

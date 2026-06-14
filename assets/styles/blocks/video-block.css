@@ -164,12 +164,14 @@
     background: var(--black);
 }
 
-.video-block__iframe-wrap iframe {
+.video-block__iframe-wrap iframe,
+.video-block__iframe-wrap video {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     border: none;
+    background: var(--black);
 }
 
 @media (max-width: 768px) {

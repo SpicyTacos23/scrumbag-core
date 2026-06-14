@@ -59,6 +59,10 @@ Encore.enableStimulusBridge("./assets/controllers.json")
         from: "./assets/images",
         to: "images/[path][name].[ext]",
     })
+    .copyFiles({
+        from: "./assets/video",
+        to: "video/[path][name].[ext]",
+    })
 
     /*
      * FEATURE CONFIG
