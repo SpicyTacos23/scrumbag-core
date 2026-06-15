@@ -71,6 +71,29 @@ final class GetDataProvider implements GetDataProviderInterface
         return $this->bands[$band] ?? [];
     }
 
+    #[Override]
+    public function getTicketsData(): array
+    {
+        return [
+            'thursday' => [
+                'price' => 25,
+                'tax' => 2.1
+            ],
+            'friday' => [
+                'price' => 30,
+                'tax' => 2.52
+            ],
+            'saturday' => [
+                'price' => 30,
+                'tax' => 2.52
+            ],
+            'full' => [
+                'price' => 55,
+                'tax' => 4.62
+            ]
+        ];
+    }
+
     private function loadBands(): void
     {
         $bands = json_decode(file_get_contents($this->getBandsFile()), true);

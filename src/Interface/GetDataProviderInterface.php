@@ -9,4 +9,5 @@ interface GetDataProviderInterface
     public function getDateData(): array;
     public function getBandsData(): array;
     public function getBandData(string $band): array;
+    public function getTicketsData(): array;
 }

@@ -8,39 +8,48 @@
 
     <div class="tickets-cta__content">
         <h2 class="tickets-cta__title">
-            ¿A QUÉ<br>ESPERAS?
+            {{ 'tickets.title'|trans|upper }}
         </h2>
         <p class="tickets-cta__sub">
-            Abonos agotándose · Últimas unidades de camping disponibles
+            {{ 'tickets.sub-title'|trans|upper|raw }}
         </p>
 
         <div class="tickets-cta__tiers">
             <div class="tickets-cta__tier">
-                <span class="tickets-cta__tier-name">ABONO 3 DÍAS</span>
-                <span class="tickets-cta__tier-price">65 €</span>
-                <span class="tickets-cta__tier-status tickets-cta__tier-status--available">DISPONIBLE</span>
+                <span class="tickets-cta__tier-name">{{ 'tickets.pass.full'|trans }}</span>
+                <span class="tickets-cta__tier-price">{{ data.tickets.full.price }} £</span>
+                <span class="tickets-cta__tier-name"><i>+{{ data.tickets.full.tax }} {{ 'tickets.tax'|trans }}</i></span>
+                <span class="tickets-cta__tier-status tickets-cta__tier-status--available">{{ 'tickets.available'|trans }}</span>
             </div>
             <div class="tickets-cta__tier">
-                <span class="tickets-cta__tier-name">ABONO + CAMPING</span>
-                <span class="tickets-cta__tier-price">85 €</span>
-                <span class="tickets-cta__tier-status tickets-cta__tier-status--low">ÚLTIMAS PLAZAS</span>
+                <span class="tickets-cta__tier-name">{{ 'tickets.pass.thu'|trans }}</span>
+                <span class="tickets-cta__tier-price">{{ data.tickets.thursday.price }} £</span>
+                <span class="tickets-cta__tier-name"><i>+{{ data.tickets.thursday.tax }} {{ 'tickets.tax'|trans }}</i></span>
+                <span class="tickets-cta__tier-status tickets-cta__tier-status--available">{{ 'tickets.available'|trans }}</span>
             </div>
             <div class="tickets-cta__tier">
-                <span class="tickets-cta__tier-name">DÍA SUELTO</span>
-                <span class="tickets-cta__tier-price">30 €</span>
-                <span class="tickets-cta__tier-status tickets-cta__tier-status--available">DISPONIBLE</span>
+                <span class="tickets-cta__tier-name">{{ 'fri'|trans }}</span>
+                <span class="tickets-cta__tier-price">{{ data.tickets.friday.price }} £</span>
+                <span class="tickets-cta__tier-name"><i>+{{ data.tickets.friday.tax }} {{ 'tickets.tax'|trans }}</i></span>
+                <span class="tickets-cta__tier-status tickets-cta__tier-status--available">{{ 'tickets.available'|trans }}</span>
+            </div>
+            <div class="tickets-cta__tier">
+                <span class="tickets-cta__tier-name">{{ 'tickets.pass.sat'|trans }}</span>
+                <span class="tickets-cta__tier-price">{{ data.tickets.saturday.price }} £</span>
+                <span class="tickets-cta__tier-name"><i>+{{ data.tickets.saturday.tax }} {{ 'tickets.tax'|trans }}</i></span>
+                <span class="tickets-cta__tier-status tickets-cta__tier-status--low">{{ 'tickets.low'|trans }}</span>
             </div>
         </div>
 
-        <a href="https://tickets.scrumbagfest.xyz"
+        <a href="https://www.ticketsource.com/scrumbagfest"
            class="tickets-cta__btn"
            target="_blank"
            rel="noopener">
-            COMPRAR AHORA
+            {{ 'tickets.buy-now'|trans }}
         </a>
 
         <p class="tickets-cta__note">
-            Venta exclusiva online · Sin cargos de gestión · Pulseras nominales
+            {{ 'tickets.note'|trans }}
         </p>
     </div>
 

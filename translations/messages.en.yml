@@ -40,4 +40,16 @@ stats:
   days: Days
 
 tickets:
+  available: Available  
   buy: Buy Tickets
+  buy-now: Buy Now
+  note: Official site · Available at door unless sold out · Personal bracelet
+  low: Last units
+  pass:
+    full: 3 day pass
+    thu: Thursday
+    fri: Friday
+    sat: Saturday
+  tax: Booking Fee
+  title: Get your ticket
+  sub-title: Get single or multy pass - last chance - <s> early bird </s>
