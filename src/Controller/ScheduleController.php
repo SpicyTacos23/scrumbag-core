@@ -12,6 +12,8 @@ final class ScheduleController extends AbstractController
     #[Route('', name: 'app_schedule', methods: ['GET'])]
     public function list(): Response
     {
-        return new Response('Schedule');
+        return $this->redirectToRoute('app_coming-soon', [
+            'origin' => 'schedule'
+        ]);
     }
 }

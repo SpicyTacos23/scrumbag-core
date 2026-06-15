@@ -1,69 +1,72 @@
 {# templates/components/footer.html.twig #}
 <footer class="footer">
 
-    <div class="footer__noise" aria-hidden="true"></div>
+	<div class="footer__noise" aria-hidden="true"></div>
 
-    <div class="footer__top">
-        <div class="footer__brand">
-            <p class="footer__logo">SCRUMBAG<br>FEST</p>
-            <p class="footer__tagline">Underground. Sin compromisos.<br>Desde 2011.</p>
-        </div>
+	<div class="footer__top">
+		<div class="footer__brand">
+			<p class="footer__logo">SCRUMBAG<br>FEST</p>
+			<p class="footer__tagline">{{ 'footer.description'|trans }}</p>
+		</div>
 
-        <nav class="footer__nav" aria-label="Navegación del footer">
-            <div class="footer__nav-group">
-                <h3 class="footer__nav-title">Festival</h3>
-                <ul>
-                    <li><a href="#bands">Bandas</a></li>
-                    <li><a href="#schedule">Horario</a></li>
-                    <li><a href="#info">Información general</a></li>
-                    <li><a href="#location">Cómo llegar</a></li>
-                </ul>
-            </div>
-            <div class="footer__nav-group">
-                <h3 class="footer__nav-title">Comunidad</h3>
-                <ul>
-                    <li><a href="#">Fanzine</a></li>
-                    <li><a href="#">Archivo / Historial</a></li>
-                    <li><a href="#">Merch &amp; Distro</a></li>
-                    <li><a href="#">Galería fotográfica</a></li>
-                </ul>
-            </div>
-            <div class="footer__nav-group">
-                <h3 class="footer__nav-title">Contacto</h3>
-                <ul>
-                    <li><a href="mailto:info@vortexfest.xyz">info@scrumbagfest.xyz</a></li>
-                    <li><a href="#">Prensa</a></li>
-                    <li><a href="#">Booking</a></li>
-                    <li><a href="#">Acreditaciones</a></li>
-                </ul>
-            </div>
-        </nav>
+		<nav class="footer__nav" aria-label="Navegación del footer">
+            {# FESTIVAL #}
+			<div class="footer__nav-group">
+				<h3 class="footer__nav-title">{{ 'footer.tags.festival.title'|trans }}</h3>
+				<ul>
+					<li><a href="#bands">{{ 'footer.tags.festival.bands'|trans }}</a></li>
+					<li><a href="#schedule">{{ 'footer.tags.festival.schedule'|trans }}</a></li>
+					<li><a href="#info">{{ 'footer.tags.festival.about'|trans }}</a></li>
+					<li><a href="#location">{{ 'footer.tags.festival.location'|trans }}</a></li>
+				</ul>
+			</div>
+            {# COMMUNITY #}
+			<div class="footer__nav-group">
+				<h3 class="footer__nav-title">{{ 'footer.tags.community.title'|trans }}</h3>
+				<ul>
+					<li><a href="{{path('app_coming-soon',{'origin':'fanzine'})}}">{{ 'footer.tags.community.fanzine'|trans }}</a></li>
+					<li><a href="{{path('app_coming-soon',{'origin':'archive'})}}">{{ 'footer.tags.community.archive'|trans }}</a></li>
+					<li><a href="{{path('app_coming-soon',{'origin':'merch'})}}">{{ 'footer.tags.community.merch'|trans }}</a></li>
+					<li><a href="{{path('app_coming-soon',{'origin':'gallery'})}}">{{ 'footer.tags.community.gallery'|trans }}</a></li>
+				</ul>
+			</div>
+            {# CONTACT #}
+			<div class="footer__nav-group">
+				<h3 class="footer__nav-title">{{ 'footer.tags.contact.title'|trans }}</h3>
+				<ul>
+					<li><a href="mailto:info@vortexfest.xyz">{{ data.contact.email }}</a></li>
+					<li><a href="{{path('app_coming-soon',{'origin':'press'})}}">{{ 'footer.tags.contact.press'|trans }}</a></li>
+					<li><a href="{{path('app_coming-soon',{'origin':'booking'})}}">{{ 'footer.tags.contact.booking'|trans }}</a></li>
+					<li><a href="{{path('app_coming-soon',{'origin':'greet'})}}">{{ 'footer.tags.contact.greets'|trans }}</a></li>
+				</ul>
+			</div>
+		</nav>
 
-        {# Newsletter #}
-        <div class="footer__newsletter" data-controller="newsletter">
-            <h3 class="footer__nav-title">LISTA NEGRA</h3>
-            <p>Sé el primero en enterarte de los anuncios de bandas.</p>
-            <form class="footer__newsletter-form"
-                  data-action="submit->newsletter#subscribe"
-                  novalidate>
-                <input type="email"
-                       placeholder="tu@correo.com"
-                       data-newsletter-target="email"
-                       required
-                       autocomplete="email">
-                <button type="submit">→</button>
-            </form>
-            <p class="footer__newsletter-feedback" data-newsletter-target="feedback" aria-live="polite"></p>
-        </div>
-    </div>
+		{# Newsletter #}
+		<div class="footer__newsletter" data-controller="newsletter">
+			<h3 class="footer__nav-title">{{ 'footer.tags.newsletter.title'|trans }}</h3>
+			<p>{{ 'footer.tags.newsletter.description'|trans }}</p>
+			<form class="footer__newsletter-form" data-action="submit->newsletter#subscribe" novalidate>
+				<input type="email" placeholder="your@mail.com" data-newsletter-target="email" required autocomplete="email">
+				<button type="submit">→</button>
+			</form>
+			<p class="footer__newsletter-feedback" data-newsletter-target="feedback" aria-live="polite"></p>
+		</div>
+	</div>
 
-    <div class="footer__bottom">
-        <p class="footer__legal">
-            &copy; {{ "now"|date("Y") }} Scrumbag Fest ·
-            <a href="#">Política de privacidad</a> ·
-            <a href="#">Aviso legal</a>
-        </p>
-        <p class="footer__credits">Hecho con rabia y Symfony 7</p>
-    </div>
+	<div class="footer__bottom">
+		<p class="footer__legal">
+			&copy;
+			{{ "now"|date("Y") }}
+			Scrumbag Fest ·
+			<a href="#">{{ 'footer.privacy-policy'|trans }}</a>
+			·
+			<a href="#">{{ 'footer.legal-advise'|trans }}</a>
+		</p>
+		<p class="footer__credits">{{ 'footer.content-creator'|trans }}
+			<a href="https://github.com/SpicyTacos23" target="_blank"><span class="footer__promo-git">@SpicyTacos</span></a>
+		</p>
+
+	</div>
 
 </footer>

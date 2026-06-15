@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ title|default('coming-soon.title'|trans) }}
+	— VORTEX FEST
+{% endblock %}
+
+{% block meta_description %}
+	{{ 'coming-soon.meta-description'|trans }}
+{% endblock %}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags('coming-soon') }}
+{% endblock %}
+
+{% block body %}
+
+	{# ──────────────────────────────────────────
+	       Optional parameters:
+	       - title:        page title shown in the breadcrumb (e.g. "Fanzine")
+	       - eyebrow:      small label above the title (e.g. "ARCHIVE")
+	       - description:  short text explaining what's coming
+	       - eta:          when it's expected (e.g. "2027")
+	    ────────────────────────────────────────── #}
+	{% include 'blocks/coming-soon.html.twig' with {
+        title: title ?? 'coming-soon.title'|trans,
+        eyebrow: eyebrow ?? 'coming-soon.eyebrow'|trans,
+        description: description ?? 'coming-soon.description'|trans,
+        eta: eta ?? 'coming-soon.eta'|trans
+    } %}
+
+{% block footer %}{% endblock %}
+{% endblock %}

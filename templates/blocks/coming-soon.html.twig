@@ -1,0 +1,62 @@
+{# templates/blocks/coming-soon.html.twig #}
+{#
+    Parameters:
+    - title:       page/section title
+    - eyebrow:     small label above the title
+    - description: short explanatory text
+    - eta:         expected availability (e.g. "2027")
+#}
+
+<section class="coming-soon" data-controller="coming_soon">
+
+    {# Background noise + grid texture #}
+    <div class="coming-soon__bg" aria-hidden="true">
+        <div class="coming-soon__noise"></div>
+        <div class="coming-soon__grid"></div>
+    </div>
+
+    {# Breadcrumb / back link #}
+    <nav class="coming-soon__breadcrumb" aria-label="Breadcrumb navigation">
+        <a href="{{ path('app_homepage') }}">← {{ 'coming-soon.back-home'|trans }}</a>
+    </nav>
+
+    <div class="coming-soon__content">
+
+        <span class="coming-soon__eyebrow">{{ eyebrow }}</span>
+
+        {# Big "under construction" marker #}
+        <div class="coming-soon__marker" aria-hidden="true">
+            <span class="coming-soon__marker-text">{{ 'coming-soon.marker'|trans }}</span>
+            <span class="coming-soon__marker-text coming-soon__marker-text--dup">{{ 'coming-soon.marker'|trans }}</span>
+        </div>
+
+        <h1 class="coming-soon__title">{{ title }}</h1>
+
+        <p class="coming-soon__desc">{{ description }}</p>
+
+        {# Status row #}
+        <div class="coming-soon__status">
+            <div class="coming-soon__status-item">
+                <span class="coming-soon__status-icon" aria-hidden="true">⚙</span>
+                <span>{{ 'coming-soon.status-in-development'|trans }}</span>
+            </div>
+            <div class="coming-soon__status-sep" aria-hidden="true"></div>
+            <div class="coming-soon__status-item">
+                <span class="coming-soon__status-label">{{ 'coming-soon.status-available-in'|trans }}</span>
+                <span class="coming-soon__status-eta">{{ eta }}</span>
+            </div>
+        </div>
+
+        {# Actions #}
+        <div class="coming-soon__actions">
+            <a href="{{ path('app_homepage') }}" class="coming-soon__btn coming-soon__btn--primary">
+                {{ 'coming-soon.btn-home'|trans }}
+            </a>
+            <a href="{{ path('app_homepage') }}#bands" class="coming-soon__btn coming-soon__btn--ghost">
+                {{ 'coming-soon.btn-bands'|trans }}
+            </a>
+        </div>
+
+    </div>
+
+</section>

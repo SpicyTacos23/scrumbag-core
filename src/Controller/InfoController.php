@@ -11,6 +11,8 @@ final class InfoController extends AbstractController
     #[Route('', name: 'app_info_transport', methods: ['GET'])]
     public function transport(): Response
     {
-        return new Response('transport');
+        return $this->redirectToRoute('app_coming-soon', [
+            'origin' => 'transport'
+        ]);
     }
 }

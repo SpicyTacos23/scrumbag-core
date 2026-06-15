@@ -13,11 +13,13 @@ final class BandsController extends AbstractController
     #[Route('', name: 'app_bands', methods: ['GET'])]
     public function list(): Response
     {
-        return new Response('Bands');
+        return $this->redirectToRoute('app_coming-soon', [
+            'origin' => 'bands'
+        ]);
     }
 
     #[Route('{slug}', name: 'app_band_detail', methods: ['GET'])]
-    public function get(string $slug, GetDataProviderInterface $getDataProvider): Response
+    public function details(string $slug, GetDataProviderInterface $getDataProvider): Response
     {
         return $this->render('blocks/band/band-detail.html.twig', [
             'band' => $getDataProvider->getBandData($slug)

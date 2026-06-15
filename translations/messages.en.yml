@@ -2,6 +2,19 @@ bands:
   all: All Bands
   bands: Bands
 
+coming-soon:
+  title: Coming Soon
+  eyebrow: UNDER CONSTRUCTION
+  description: This page is not available yet. Subscribe to our newsletter and we will let you know when something changes. Come back soon to discover more about the festival.
+  eta: 2027
+  meta-description: This section will be available soon on Vortex Fest.
+  back-home: BACK TO HOME
+  marker: UNDER CONSTRUCTION
+  status-in-development: Feature in development
+  status-available-in: AVAILABLE IN
+  btn-home: BACK TO HOME
+  btn-bands: VIEW BANDS
+
 event:
   edition: IV EDITION
 
@@ -10,6 +23,33 @@ featured-bands:
   details: Details
   lineup: LineUp
   see-all: See All Bands
+
+footer:
+  description: A Grindcore/Hardcore Punk/Death Metal fest located in Rugby, West Midlands. Showcasing DIY music from all over the place.
+  tags:
+    contact:
+      booking: Booking
+      greets: Greets
+      press: Press
+      title: Contact
+    community:
+      archive: Archive / History
+      gallery: Gallery
+      fanzine: Fanzine
+      title: Community
+      merch: Merch & Distri
+    festival:
+      about: About
+      bands: Bands
+      location: How to arrive
+      schedule: Schedule
+      title: Festival
+    newsletter:
+      description: Be the first one to hear from latest news.
+      title: Newsletter
+  privacy-policy: Privacy Policy
+  legal-advise: Legal Advise
+  content-creator: Made with love by
 
 location:
   bar: Bar inside
@@ -40,7 +80,7 @@ stats:
   days: Days
 
 tickets:
-  available: Available  
+  available: Available
   buy: Buy Tickets
   buy-now: Buy Now
   note: Official site · Available at door unless sold out · Personal bracelet

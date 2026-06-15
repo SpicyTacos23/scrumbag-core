@@ -12,6 +12,8 @@ final class LocationController extends AbstractController
     #[Route('how-to-arrive', name: 'app_info_transport', methods: ['GET'])]
     public function main(): Response
     {
-        return new Response('TODO');
+        return $this->redirectToRoute('app_coming-soon', [
+            'origin' => 'location'
+        ]);
     }
 }

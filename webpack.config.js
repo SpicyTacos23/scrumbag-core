@@ -45,6 +45,7 @@ Encore.enableStimulusBridge("./assets/controllers.json")
     .addStyleEntry("band-gallery", "./assets/styles/blocks/band-gallery.css")
     .addStyleEntry("band-header", "./assets/styles/blocks/band-header.css")
     .addStyleEntry("band-media", "./assets/styles/blocks/band-media.css")
+    .addStyleEntry("coming-soon", "./assets/styles/blocks/coming-soon.css")
 
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.

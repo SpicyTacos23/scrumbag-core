@@ -171,6 +171,11 @@
     color: rgba(102, 102, 102, 0.5);
 }
 
+.footer__promo-git {
+    font-size: 15px;
+    color: #888484;
+}
+
 /* ── Responsive ── */
 @media (max-width: 1100px) {
     .footer__top {

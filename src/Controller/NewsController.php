@@ -12,7 +12,9 @@ final class NewsController extends AbstractController
     #[Route('', name: 'app_news', methods: ['GET'])]
     public function main(): Response
     {
-        return new Response('NEWS');
+        return $this->redirectToRoute('app_coming-soon', [
+            'origin' => 'news'
+        ]);
     }
 
     #[Route('{slug}', name: 'app_news_detail', methods: ['GET'])]

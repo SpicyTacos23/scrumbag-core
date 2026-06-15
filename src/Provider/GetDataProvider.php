@@ -35,6 +35,14 @@ final class GetDataProvider implements GetDataProviderInterface
     }
 
     #[Override]
+    public function getContactData(): array 
+    {
+        return  [
+            'email' => 'test@scrumbagfest.org'
+        ];
+    }
+
+    #[Override]
     public function getEventData(): array
     {
         return [

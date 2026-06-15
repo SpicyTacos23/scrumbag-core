@@ -54,7 +54,9 @@
 			</div>
 
 			{# ─── Footer ─── #}
-			{% include 'components/footer.html.twig' %}
+			{% block footer %}
+				{% include 'components/footer.html.twig' %}
+			{% endblock %}
 
 			{% block javascripts %}{% endblock %}
 		</body>
