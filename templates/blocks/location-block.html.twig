@@ -1,56 +1,57 @@
 {# templates/blocks/location-block.html.twig #}
 <section class="location-block" id="location" data-controller="location-block">
 
-    <div class="location-block__inner">
+	<div class="location-block__inner">
 
-        <div class="location-block__info">
-            <div class="location-block__label">UBICACIÓN</div>
-            <h2 class="location-block__title">ARENAS DE<br>LA CALAVERA</h2>
+		<div class="location-block__info">
+			<div class="location-block__label">{{ 'location.location'|trans|upper }}</div>
+			<h2 class="location-block__title">{{ data.location.description }}</h2>
 
-            <address class="location-block__address">
-                <p>Carretera de la Sierra, km 42</p>
-                <p>28740 Sierra Norte, Madrid</p>
-            </address>
+			<address class="location-block__address">
+				<p>{{ data.location.address }}</p>
+				<p>{{ data.location.city }},
+					{{ data.location.country }}</p>
+			</address>
 
-            <ul class="location-block__features">
-                <li>
-                    <span class="location-block__icon" aria-hidden="true">⛺</span>
-                    <span>Camping gratuito para abonados</span>
-                </li>
-                <li>
-                    <span class="location-block__icon" aria-hidden="true">🚌</span>
-                    <span>Bus lanzadera desde Madrid</span>
-                </li>
-                <li>
-                    <span class="location-block__icon" aria-hidden="true">🚗</span>
-                    <span>Parking habilitado en el recinto</span>
-                </li>
-                <li>
-                    <span class="location-block__icon" aria-hidden="true">🍺</span>
-                    <span>Bares, food trucks y zona chill</span>
-                </li>
-            </ul>
 
-            <a href="{{ path('app_info_transport') }}" class="location-block__link">
-                Cómo llegar →
-            </a>
-        </div>
+			<ul class="location-block__features">
+				<li>
+					<span class="location-block__icon" aria-hidden="true">⛺</span>
+					<span>{{ 'location.camping'|trans }}</span>
+				</li>
+				<li>
+					<span class="location-block__icon" aria-hidden="true">🚌</span>
+					<span>{{ 'location.public-transport'|trans }}</span>
+				</li>
+				<li>
+					<span class="location-block__icon" aria-hidden="true">🚗</span>
+					<span>{{ 'location.parking'|trans }}</span>
+				</li>
+				<li>
+					<span class="location-block__icon" aria-hidden="true">🍺</span>
+					<span>{{ 'location.bar'|trans }}</span>
+				</li>
+			</ul>
 
-        <div class="location-block__map-wrap">
-            {# Mapa estático (sustituir por Google Maps embed real) #}
-            <div class="location-block__map-placeholder"
-                 data-location-block-target="map"
-                 aria-label="Mapa de ubicación del festival">
-                <img src="https://picsum.photos/seed/map-terrain/800/600"
-                     alt="Mapa aproximado de la zona del festival"
-                     loading="lazy">
-                <div class="location-block__map-pin" aria-hidden="true">
-                    <span>📍</span>
-                    <strong>SCRUMBAG FEST</strong>
-                </div>
-            </div>
-        </div>
+			<a href="{{ path('app_info_transport') }}" class="location-block__link">
+				{{ 'location.how-to'|trans }}
+				→
+			</a>
+		</div>
 
-    </div>
+		<a target="_blank" href="https://www.google.com/maps/place/Rugby+West+Indian+Association+Social+Club/@52.3751145,-1.2562685,19z/data=!4m6!3m5!1s0x487740943a4e4db5:0x8278e78e1a68bca7!8m2!3d52.3750343!4d-1.2558554!16s%2Fg%2F1tj7_grj?entry=ttu&g_ep=EgoyMDI2MDYxMC4wIKXMDSoASAFQAw%3D%3D">
+			<div class="location-block__map-wrap">
+				<div class="location-block__map-placeholder" data-location-block-target="map" aria-label="Mapa de ubicación del festival">
+					<img src="{{ asset('/build/images/location_thumbnail.png') }}" alt="Mapa aproximado de la zona del festival" loading="lazy">
+					<div class="location-block__map-pin" aria-hidden="true">
+						<span>📍</span>
+						<strong>SCRUMBAG FEST</strong>
+					</div>
+				</div>
+			</div>
+		</a>
+
+
+	</div>
 
 </section>

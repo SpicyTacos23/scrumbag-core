@@ -11,6 +11,14 @@ featured-bands:
   lineup: LineUp
   see-all: See All Bands
 
+location:
+  bar: Bar inside
+  camping: No camping available at this moment
+  how-to: How to arrive
+  location: Location
+  parking: Open Public parking
+  public-transport: To be defined...
+
 navbar:
   bands: bands
   info: info
