@@ -1,0 +1,14 @@
+vendor/
+var/
+node_modules/
+build/
+.git/
+.env
+.env.local
+public/build/
+tests/
+private/
+/.idea
+/.vscode
+docker-compose.*
+Dockerfile*

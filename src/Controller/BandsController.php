@@ -22,7 +22,10 @@ final class BandsController extends AbstractController
     public function details(string $slug, GetDataProviderInterface $getDataProvider): Response
     {
         return $this->render('blocks/band/band-detail.html.twig', [
-            'band' => $getDataProvider->getBandData($slug)
+            'band' => $getDataProvider->getBandData($slug),
+            'data' => [
+                'contact' => $getDataProvider->getContactData()
+            ]
         ]);
     }
 }
