@@ -1,68 +1,56 @@
 ###############################################
 # STAGE 1 — Build frontend assets
 ###############################################
-FROM node:24 AS frontend
+FROM node:22-alpine AS frontend
 
 WORKDIR /app
 
-COPY package.json yarn.lock* ./
-RUN yarn install
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile
 
 COPY . .
 RUN yarn build
 
-
 ###############################################
-# STAGE 2 — Install PHP dependencies (vendor)
+# STAGE 2 — PHP dependencies
 ###############################################
 FROM php:8.2-cli AS vendor
 
-# Dependencias necesarias para Composer
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    libicu-dev \
     libzip-dev \
-    libxml2-dev \
-    libonig-dev \
-    libsqlite3-dev \
+    libicu-dev \
     unzip \
-    git \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Extensiones mínimas necesarias para Composer
-RUN docker-php-ext-install intl zip pdo pdo_mysql pdo_sqlite bcmath
+RUN docker-php-ext-install zip intl opcache
+
+# Instalar Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 WORKDIR /app
 
 COPY composer.json composer.lock ./
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
+# --no-dev en producción, con dev en local se maneja con ARG
+RUN composer install --optimize-autoloader --no-interaction --no-scripts
 
 COPY . .
 RUN composer dump-autoload --optimize
-RUN composer run-script --no-interaction post-install-cmd || true
-
 
 ###############################################
-# STAGE 3 — Runtime (PHP-FPM + Symfony CLI)
+# STAGE 3 — Runtime
 ###############################################
 FROM php:8.2-fpm
 
-# Dependencias del sistema
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    libicu-dev \
     libzip-dev \
-    libxml2-dev \
-    libonig-dev \
-    libsqlite3-dev \
+    libicu-dev \
     unzip \
-    git \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Extensiones PHP necesarias en runtime
-RUN docker-php-ext-install intl zip pdo pdo_mysql pdo_sqlite bcmath opcache
+RUN docker-php-ext-install zip intl opcache
 
 # Instalar Symfony CLI
 RUN curl -1sLf "https://get.symfony.com/cli/installer" | bash \
@@ -70,13 +58,18 @@ RUN curl -1sLf "https://get.symfony.com/cli/installer" | bash \
 
 WORKDIR /app
 
-# Copiar vendor y build
+# Traer vendor del stage 2
 COPY --from=vendor /app /app
+
+# Traer assets compilados del stage 1
 COPY --from=frontend /app/public/build /app/public/build
 
-# Copiar resto del proyecto
-COPY . .
+# Crear .env vacío para que Symfony no falle (las vars vienen de Render)
+RUN touch /app/.env
+
+# Permisos en var/
+RUN mkdir -p var/cache var/log && chmod -R 777 var/
 
 EXPOSE 8000
 
-CMD ["symfony", "server:start", "--no-tls", "--port=8000", "--allow-http", "--allow-all-ip"]
+CMD ["symfony", "server:start", "--no-tls", "--port=8000", "--allow-http", "--allow-all-ip", "--listen-ip=0.0.0.0"]

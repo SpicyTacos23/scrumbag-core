@@ -8,7 +8,6 @@ build/
 .env.*
 public/build/
 tests/
-private/
 /.idea
 /.vscode
 docker-compose.*
