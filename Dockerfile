@@ -18,11 +18,12 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-ins
     default-mysql-client \
     pkg-config \
     build-essential \
+    openssl \
   && rm -rf /var/lib/apt/lists/*
 
 # Configura y compila extensiones PHP necesarias
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
-  && docker-php-ext-install -j$(nproc) gd intl pdo pdo_mysql zip xml bcmath opcache \
+  && docker-php-ext-install -j$(nproc) gd intl pdo pdo_mysql pdo_sqlite zip xml bcmath opcache \
   && pecl install apcu || true \
   && docker-php-ext-enable apcu
 
@@ -63,11 +64,18 @@ RUN yarn build || npm run build || true
 # Exponer puerto
 EXPOSE 8000
 
-# Variables de entorno recomendadas (puedes sobrescribir en tiempo de ejecución)
+# Genera APP_SECRET si está vacío (para desarrollo)
+RUN if [ -f .env ] && grep -q "^APP_SECRET=$" .env; then \
+      APP_SECRET=$(openssl rand -hex 16) && \
+      sed -i "s/^APP_SECRET=$/APP_SECRET=$APP_SECRET/" .env; \
+    fi
+
+# Variables de entorno por defecto para desarrollo
 ENV APP_ENV=dev \
     APP_DEBUG=1 \
-    SYMFONY_ALLOW_APP_DIR=true
+    SYMFONY_ALLOW_APP_DIR=true \
+    DATABASE_URL="sqlite:///%kernel.project_dir%/var/data_dev.db"
 
 # Comando por defecto: arranca servidor Symfony en primer plano, accesible en 0.0.0.0:8000
-# Se elimina la opción no soportada `--no-banner` y se añade `--allow-all-ip`
 CMD ["sh", "-lc", "symfony server:start --no-tls --allow-http --dir=public --port=8000 --allow-all-ip"]
+

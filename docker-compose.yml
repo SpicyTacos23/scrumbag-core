@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: scrumbag-core
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/var/www/html
+    environment:
+      APP_ENV: dev
+      APP_DEBUG: 1
+      # Descomenta y ajusta si usas una BD remota:
+      # DATABASE_URL: "postgresql://app:password@db:5432/app?serverVersion=16&charset=utf8"
+      # Para desarrollo local con SQLite (por defecto):
+      DATABASE_URL: "sqlite:///%kernel.project_dir%/var/data_dev.db"
+      MAILER_DSN: "null://null"
+      MESSENGER_TRANSPORT_DSN: "doctrine://default?auto_setup=0"
+    command: sh -lc "symfony server:start --no-tls --allow-http --dir=public --port=8000 --allow-all-ip"
+    networks:
+      - scrumbag-network
+
+  # Descomenta si necesitas PostgreSQL
+  # db:
+  #   image: postgres:16-alpine
+  #   container_name: scrumbag-db
+  #   environment:
+  #     POSTGRES_USER: app
+  #     POSTGRES_PASSWORD: password
+  #     POSTGRES_DB: app
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   networks:
+  #     - scrumbag-network
+
+networks:
+  scrumbag-network:
+    driver: bridge
+
+# volumes:
+#   postgres_data:
