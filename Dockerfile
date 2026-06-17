@@ -1,7 +1,8 @@
 FROM php:8.2-cli
 
 # Instala herramientas del sistema y dependencias para extensiones PHP
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+RUN apt-get update \
+  && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     ca-certificates \
     git \
     unzip \
@@ -10,21 +11,17 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-ins
     lsb-release \
     libzip-dev \
     libicu-dev \
-    libpng-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
     libxml2-dev \
     libonig-dev \
     default-mysql-client \
     pkg-config \
-    build-essential \
     openssl \
+  && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
-# Configura y compila extensiones PHP necesarias
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
-  && docker-php-ext-install -j$(nproc) gd intl pdo pdo_mysql pdo_sqlite zip xml bcmath opcache \
-  && pecl install apcu || true \
+# Compila extensiones PHP necesarias (sin gd para evitar problemas de compilación)
+RUN docker-php-ext-install -j$(nproc) intl pdo pdo_mysql pdo_sqlite zip xml bcmath opcache \
+  && pecl install apcu \
   && docker-php-ext-enable apcu
 
 # Instala Composer
@@ -65,10 +62,9 @@ RUN yarn build || npm run build || true
 EXPOSE 8000
 
 # Genera APP_SECRET si está vacío (para desarrollo)
-RUN if [ -f .env ] && grep -q "^APP_SECRET=$" .env; then \
-      APP_SECRET=$(openssl rand -hex 16) && \
-      sed -i "s/^APP_SECRET=$/APP_SECRET=$APP_SECRET/" .env; \
-    fi
+RUN if grep -q "^APP_SECRET=$" .env 2>/dev/null; then \
+      sed -i "s/^APP_SECRET=$/APP_SECRET=$(openssl rand -hex 16)/" .env; \
+    fi || echo "APP_SECRET already set or .env not found"
 
 # Variables de entorno por defecto para desarrollo
 ENV APP_ENV=dev \
