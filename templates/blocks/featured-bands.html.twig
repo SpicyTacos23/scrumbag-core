@@ -17,9 +17,9 @@
                          data-action="mouseenter->band-card#reveal mouseleave->band-card#hide">
                     {# Image #}
                     <div class="band-card__img-wrap">
-                        {% if band.image is defined and band.image %}
+                        {% if extensions.assetExtension.assetExists('images/bands/' ~ key ~ '.jpg') %}
                             <img class="band-card__img"
-                                 src="{{ asset('uploads/bands/' ~ band.image) }}"
+                                 src="{{ asset('build/images/bands/' ~ key ~ '.jpg') }}"
                                  alt="{{ band.name }}"
                                  loading="lazy">
                         {% else %}
