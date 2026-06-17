@@ -20,7 +20,8 @@ final class HomepageController extends AbstractController
                 'date' => $data->getDateData(),
                 'bands' => $data->getBandsData(),
                 'tickets' => $data->getTicketsData(),
-                'contact' => $data->getContactData()
+                'contact' => $data->getContactData(),
+                'video' => $data->getVideoData()
             ],
             'extensions' => [
                 'assetExtension' => $assetExtension

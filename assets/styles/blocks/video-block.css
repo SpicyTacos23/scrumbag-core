@@ -178,3 +178,54 @@
     .video-block { padding-left: var(--gutter); }
     .video-block__content { grid-template-columns: 1fr; }
 }
+
+/* Contenedor del thumbnail (ya existe, pero lo reforzamos) */
+.video-block__thumb-wrap {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Botón siguiente: lateral derecho completo */
+.video-block__next {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 80px;               /* ancho del lateral */
+    height: 100%;              /* ocupa toda la altura */
+    z-index: 4;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    background: linear-gradient(
+        to left,
+        rgba(0, 0, 0, 0.55),
+        rgba(0, 0, 0, 0.0)
+    );
+
+    color: var(--white);
+    font-size: 2rem;
+    font-weight: 300;
+    cursor: pointer;
+
+    transition: background 0.25s ease, transform 0.2s ease;
+}
+
+/* Hover: más contraste, ligera animación */
+.video-block__next:hover {
+    background: linear-gradient(
+        to left,
+        rgba(232, 255, 0, 0.8),   /* tu color accent */
+        rgba(0, 0, 0, 0.0)
+    );
+    color: var(--black);
+    transform: translateX(3px);
+}
+
+/* Icono más fino y elegante */
+.video-block__next::before {
+    font-size: 2.2rem;
+    line-height: 1;
+}

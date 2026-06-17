@@ -2,21 +2,33 @@
 // Opens/closes a modal with a local <video> element. Sets src on open
 // and plays it; clears src and pauses on close.
 
+// assets/controllers/video_block_controller.js
+
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-    static targets = ["modal", "video"];
+    static targets = ["modal", "video", "thumb", "year", "description"];
+    static values = {
+        videos: Array,
+        currentIndex: Number
+    };
+
+    connect() {
+        this.currentIndexValue = 0;
+    }
 
     openModal(event) {
         event.preventDefault();
-        const videoSrc = event.params.videoSrc;
 
-        this.videoTarget.src = videoSrc;
+        const index = event.params.index ?? this.currentIndexValue;
+        const video = this.videosValue[index];
+
+        this.currentIndexValue = index;
+
+        this.videoTarget.src = `/build/video/${video.src}`;
         this.modalTarget.setAttribute("aria-hidden", "false");
         document.body.style.overflow = "hidden";
-        this.modalTarget.focus();
 
-        // play() returns a promise that can reject if autoplay is blocked
         this.videoTarget.play().catch(() => {});
     }
 
@@ -28,17 +40,17 @@ export default class extends Controller {
         document.body.style.overflow = "";
     }
 
-    // Close with Escape
-    keydown(event) {
-        if (event.key === "Escape") this.closeModal();
-    }
+    nextVideo(event) {
+        event.stopPropagation();
 
-    connect() {
-        this._keydown = this.keydown.bind(this);
-        window.addEventListener("keydown", this._keydown);
-    }
+        this.currentIndexValue =
+            (this.currentIndexValue + 1) % this.videosValue.length;
 
-    disconnect() {
-        window.removeEventListener("keydown", this._keydown);
+        const video = this.videosValue[this.currentIndexValue];
+
+        // Actualizar UI
+        this.thumbTarget.src = `/build/images/${video.thumb}`;
+        this.yearTarget.textContent = video.year;
+        this.descriptionTarget.textContent = video.description;
     }
 }

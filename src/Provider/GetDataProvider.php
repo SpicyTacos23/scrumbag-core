@@ -119,4 +119,26 @@ final class GetDataProvider implements GetDataProviderInterface
         }
         return $bandsFile;
     }
+
+    public function getVideoData(): array
+    {
+        return [
+            0 => [
+                'title' => 'PROMO',
+                'year' => 2026,
+                'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+				                Tria dias de inferno sonoro en las montañas. Sin postureo.
+				                Sin mainstream. Solo música de verdad.',
+                'thumb' => 'video_promo_thumbnail.jpg',
+                'src' => 'promo_2026.mp4'
+            ],
+            1 => [
+                'title' => 'PREVIOUS',
+                'year' => 2026,
+                'description' => 'TEST TEST TEST',
+                'thumb' => 'video_2025_thumbnail.png',
+                'src' => 'promo_2025.mp4'
+            ]
+        ];
+    }
 }
